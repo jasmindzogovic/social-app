@@ -87,7 +87,7 @@ exports.logIn = async (req, res, next) => {
 
 // Log out functionality
 exports.logOut = (req, res) => {
-  res.cookie("jwt", "", { maxAge: 1 });
+  res.cookie("jwt", "");
 
   res
     .status(200)

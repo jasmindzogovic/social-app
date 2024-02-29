@@ -15,6 +15,17 @@ exports.getPosts = async (req, res) => {
   }
 };
 
+exports.getUserPosts = async (req, res) => {
+  try {
+    const userID = req.user._id;
+    const posts = await Post.find({ user: userID });
+
+    res.status(200).json({ status: "success", data: { posts } });
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.message });
+  }
+};
+
 exports.createPost = async (req, res) => {
   try {
     const { description } = req.body;
