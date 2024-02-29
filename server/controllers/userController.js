@@ -38,7 +38,7 @@ exports.signUp = async (req, res, next) => {
     });
 
     // Send verification email to user to activate account
-    sendVerificationEmail(user.activationString, user.firstName);
+    sendVerificationEmail(user.activationString, user.email);
 
     // Set the status and send the new user with the accompanying json
     res.status(201).json({ status: "success", data: { user } });
@@ -95,14 +95,18 @@ exports.logOut = (req, res) => {
 // Verify account
 exports.verifyAccount = async (req, res) => {
   try {
+    // Find user with the verification string in the params
     const user = await User.findOne({
       activationString: req.params.verificationString,
     });
+
+    // If the user exists delete the activation string, make user active
     if (user) {
       user.activationString = undefined;
       user.active = true;
       await user.save({ validateBeforeSave: false });
     }
+
     res
       .status(200)
       .json({ status: "success", message: "User verification complete." });
