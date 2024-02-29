@@ -87,7 +87,7 @@ exports.logIn = async (req, res, next) => {
 
 // Log out functionality
 exports.logOut = (req, res) => {
-  res.cookie("jwt", "");
+  res.cookie("jwt", "", { maxAge: 1 });
 
   res
     .status(200)
@@ -180,7 +180,7 @@ exports.addRemoveFriends = async (req, res) => {
     const user = await User.findOne({ _id: userID });
 
     if (operation === "add") {
-      await User.findOneAndUpdate({ $push: { friends: friendID } });
+      await User.findOneAndUpdate({ $addToSet: { friends: friendID } });
     } else if (operation === "remove") {
       await User.findOneAndUpdate({ $pull: { friends: friendID } });
     }

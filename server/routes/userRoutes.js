@@ -13,6 +13,11 @@ const {
   addRemoveFriends,
 } = require("../controllers/userController");
 
+// Authentication routes
+router.post("/signup", upload.single("image"), signUp);
+router.post("/login", logIn);
+router.get("/logout", logOut);
+
 // User routes
 router.get("/", protectRoute, getUsers);
 router
@@ -20,10 +25,6 @@ router
   .get(protectRoute, getUser)
   .patch(protectRoute, addRemoveFriends);
 
-// Authentication routes
-router.post("/signup", upload.single("image"), signUp);
 router.get("/:verificationString", verifyAccount);
-router.post("/login", logIn);
-router.get("/logout", logOut);
 
 module.exports = router;

@@ -49,6 +49,6 @@ app.use(compression());
 
 // ROUTES
 app.use("/api/v1/users", userRouter);
-// app.use("api/v1/posts", postsRouter);
+app.use("/api/v1/posts", postsRouter);
 
 module.exports = app;
