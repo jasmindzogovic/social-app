@@ -39,7 +39,7 @@ exports.signUp = async (req, res, next) => {
     // Set the status and send the new user with the accompanying json
     res.status(201).json({ status: "success", data: { user } });
   } catch (error) {
-    res.status(400).json({ status: "failed", message: error.message });
+    res.status(400).json({ status: "fail", message: error.message });
   }
 };
 
@@ -82,4 +82,15 @@ exports.logOut = (req, res) => {
   res
     .status(200)
     .json({ status: "success", message: "Successfully logged out." });
+};
+
+// Get all users
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+
+    res.status(200).json({ status: "success", data: { users } });
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.message });
+  }
 };
