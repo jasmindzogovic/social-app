@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+
 const User = require("../models/userModel");
 
 const { signToken } = require("../utils/jwtSignature");
@@ -79,7 +81,7 @@ exports.logIn = async (req, res, next) => {
       token,
     });
   } catch (error) {
-    res.status(400).json({ status: "failed", message: error.message });
+    res.status(400).json({ status: "fail", message: error.message });
   }
 };
 
@@ -116,12 +118,55 @@ exports.verifyAccount = async (req, res) => {
   }
 };
 
+// Protect Routes
+exports.protectRoute = async (req, res, next) => {
+  try {
+    // Get token from cookies
+    const token = req.cookies.jwt;
+
+    // Check if the token exists
+    if (!token) throw new Error("Please sign in to gain access.");
+
+    // Verify token
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Check if user still exists
+    const currentUser = await User.findById(verified.payload);
+
+    // If not throw an error
+    if (!currentUser)
+      throw new Error("The token belonging to the user no longer exists.");
+
+    // Otherwise send the user in the request and grant access
+    req.user = currentUser;
+    next();
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.message });
+  }
+};
+
 // Get all users
 exports.getUsers = async (req, res) => {
   try {
     const users = await User.find();
 
     res.status(200).json({ status: "success", data: { users } });
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.message });
+  }
+};
+
+// Get a single user
+exports.getUser = async (req, res) => {
+  try {
+    const userID = req.params.userID;
+    if (!userID) throw new Error("Please log in to get access to the page.");
+
+    const user = await User.findOne({ _id: userID });
+
+    if (!user) throw new Error("No account exists with those credentials.");
+
+    res.status(200).json({ status: "success", data: { user } });
   } catch (error) {
     res.status(400).json({ status: "fail", message: error.message });
   }
