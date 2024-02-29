@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
     required: [true, "A first name is required."],
     validate: [
       validator.isAlpha,
-      "Please provide a name only containing letters.",
+      "Please provide a name only containing characters.",
     ],
   },
   lastName: {
@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     required: [true, "A last name is required."],
     validate: [
       validator.isAlpha,
-      "Please provide a last name only containing letters.",
+      "Please provide a last name only containing characters.",
     ],
   },
   image: {
@@ -57,7 +57,10 @@ const UserSchema = new mongoose.Schema({
   },
   occupation: {
     type: String,
-    validate: [validator.isAlpha, "Please provide an actual occupation."],
+    validate: {
+      validator: (val) => validator.isAlpha(val, ["en-US"], { ignore: " " }),
+      message: "An occupation must only contain characters",
+    },
   },
   friends: [
     {
