@@ -163,8 +163,6 @@ exports.getUser = async (req, res) => {
 
     const user = await User.findOne({ _id: userID });
 
-    console.log(user.friends);
-
     if (!user) throw new Error("No account exists with those credentials.");
 
     res.status(200).json({ status: "success", data: { user } });
