@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 
 const { signToken } = require("../utils/jwtSignature");
+const { sendVerificationEmail } = require("../utils/sendVerificationEmail");
 
 const cookieOptions = {
   expiresIn: new Date(
@@ -36,6 +37,9 @@ exports.signUp = async (req, res, next) => {
       occupation,
     });
 
+    // Send verification email to user to activate account
+    sendVerificationEmail(user.activationString, user.firstName);
+
     // Set the status and send the new user with the accompanying json
     res.status(201).json({ status: "success", data: { user } });
   } catch (error) {
@@ -61,6 +65,10 @@ exports.logIn = async (req, res, next) => {
         "No user found with those inputs. Please check your email or password."
       );
 
+    // Check if the user has activated account
+    if (!user.active)
+      throw new Error("Please verify account to get access to site.");
+
     // After clearing all hurdles sign a new jwt token, set it to the cookies, and send it with json
     const token = signToken(user._id);
 
@@ -82,6 +90,26 @@ exports.logOut = (req, res) => {
   res
     .status(200)
     .json({ status: "success", message: "Successfully logged out." });
+};
+
+// Verify account
+exports.verifyAccount = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      activationString: req.params.verificationString,
+    });
+    if (user) {
+      user.activationString = undefined;
+      user.active = true;
+      await user.save({ validateBeforeSave: false });
+    }
+    res
+      .status(200)
+      .json({ status: "success", message: "User verification complete." });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ status: "fail", message: error.message });
+  }
 };
 
 // Get all users

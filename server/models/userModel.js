@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 const { ObjectId } = mongoose.Schema;
 
@@ -68,6 +69,11 @@ const UserSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  active: {
+    type: Boolean,
+    default: false,
+  },
+  activationString: String,
 });
 
 // HASH THE PASSWORD BEFORE SAVING DOCUMENT
@@ -78,6 +84,9 @@ UserSchema.pre("save", async function (next) {
   const salt = await bcrypt.genSalt();
   this.password = await bcrypt.hash(this.password, salt);
   this.passwordConfirm = undefined;
+
+  const randomNum = crypto.randomBytes(32).toString("hex");
+  this.activationString = randomNum;
 
   next();
 });
