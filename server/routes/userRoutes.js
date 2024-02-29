@@ -1,5 +1,7 @@
 const router = require("express").Router();
 
+const upload = require("../utils/multerUpload");
+
 const {
   signUp,
   logIn,
@@ -10,7 +12,7 @@ const {
 
 router.get("/", getUsers);
 router.get("/:verificationString", verifyAccount);
-router.post("/signup", signUp);
+router.post("/signup", upload.single("image"), signUp);
 router.post("/login", logIn);
 router.get("/logout", logOut);
 
