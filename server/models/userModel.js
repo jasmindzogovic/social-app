@@ -3,7 +3,7 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
-const { ObjectId } = mongoose.Schema;
+const { ObjectId } = mongoose.Schema.Types;
 
 const UserSchema = new mongoose.Schema({
   firstName: {
@@ -67,6 +67,7 @@ const UserSchema = new mongoose.Schema({
     {
       type: ObjectId,
       ref: "User",
+      unique: true,
     },
   ],
   active: {
@@ -93,12 +94,11 @@ UserSchema.pre("save", async function (next) {
 
 // POPULATE THE FRIEND WITH SELECTED FIELDS
 UserSchema.pre(/^find/, function (next) {
-  if (this.friends) {
-    this.populate({
-      path: "friends",
-      select: "firstName lastName image location occupation",
-    });
-  }
+  this.populate({
+    path: "friends",
+    select: "firstName lastName image location occupation",
+  });
+
   next();
 });
 

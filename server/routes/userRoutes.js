@@ -10,10 +10,17 @@ const {
   verifyAccount,
   protectRoute,
   getUser,
+  addRemoveFriends,
 } = require("../controllers/userController");
 
+// User routes
 router.get("/", protectRoute, getUsers);
-router.get("/:userID", protectRoute, getUser);
+router
+  .route("/:userID")
+  .get(protectRoute, getUser)
+  .patch(protectRoute, addRemoveFriends);
+
+// Authentication routes
 router.post("/signup", upload.single("image"), signUp);
 router.get("/:verificationString", verifyAccount);
 router.post("/login", logIn);

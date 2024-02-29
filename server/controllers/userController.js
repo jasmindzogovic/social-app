@@ -159,14 +159,35 @@ exports.getUsers = async (req, res) => {
 // Get a single user
 exports.getUser = async (req, res) => {
   try {
-    const userID = req.params.userID;
-    if (!userID) throw new Error("Please log in to get access to the page.");
+    const { userID } = req.params;
 
     const user = await User.findOne({ _id: userID });
+
+    console.log(user.friends);
 
     if (!user) throw new Error("No account exists with those credentials.");
 
     res.status(200).json({ status: "success", data: { user } });
+  } catch (error) {
+    res.status(400).json({ status: "fail", message: error.message });
+  }
+};
+
+// Add or remove friends
+exports.addRemoveFriends = async (req, res) => {
+  try {
+    const { operation, friendID } = req.body;
+    const { userID } = req.params;
+
+    const user = await User.findOne({ _id: userID });
+
+    if (operation === "add") {
+      await User.findOneAndUpdate({ $push: { friends: friendID } });
+    } else if (operation === "remove") {
+      await User.findOneAndUpdate({ $pull: { friends: friendID } });
+    }
+
+    res.status(200).json({ message: "success", data: { user } });
   } catch (error) {
     res.status(400).json({ status: "fail", message: error.message });
   }
