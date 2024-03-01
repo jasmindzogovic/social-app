@@ -37,8 +37,6 @@ exports.createPost = async (req, res) => {
 
     const userID = req.user._id;
 
-    if (!userID) throw new Error("Please log in order to post.");
-
     const post = await Post.create({ description, user: userID });
 
     res.status(201).json({ status: "success", data: { post } });
@@ -49,7 +47,7 @@ exports.createPost = async (req, res) => {
 
 exports.likePost = async (req, res) => {
   try {
-    const { postId } = req.params;
+    const { postId } = req.params || req.body;
     const userID = req.user._id;
 
     const post = await Post.findOneAndUpdate(

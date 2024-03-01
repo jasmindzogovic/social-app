@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema({
     required: [true, "An email is required to sign up for an account."],
     unique: true,
     lowercase: true,
-    validate: [validator.isEmail, "Please provide an actual email address."],
+    validate: [validator.isEmail, "Please provide a legitimate email address."],
   },
   password: {
     type: String,
@@ -44,12 +44,12 @@ const UserSchema = new mongoose.Schema({
   },
   passwordConfirm: {
     type: String,
-    required: [true, "Please confirm your password"],
+    required: [true, "Please confirm your password."],
     validate: {
       validator: function (val) {
         return val === this.password;
       },
-      message: "Passwords must match",
+      message: "Passwords must match in order to be able to open an account",
     },
   },
   location: {

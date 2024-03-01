@@ -25,6 +25,7 @@ router
   .get(protectRoute, getUser)
   .patch(protectRoute, addRemoveFriends);
 
+// Account verification upon sign up route
 router.get("/:verificationString", verifyAccount);
 
 module.exports = router;

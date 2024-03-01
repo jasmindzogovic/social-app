@@ -64,7 +64,7 @@ exports.logIn = async (req, res, next) => {
     // If the user doesn't exist or the password doesn't match throw an error
     if (!user || !(await user.correctPassword(password, user.password)))
       throw new Error(
-        "No user found with those inputs. Please check your email or password."
+        "No user found with those credentials. Please check your email or password."
       );
 
     // Check if the user has activated account
@@ -135,7 +135,7 @@ exports.protectRoute = async (req, res, next) => {
 
     // If not throw an error
     if (!currentUser)
-      throw new Error("The token belonging to the user no longer exists.");
+      throw new Error("Your session has expired. Please log in again.");
 
     // Otherwise send the user in the request and grant access
     req.user = currentUser;
