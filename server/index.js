@@ -16,7 +16,6 @@ const app = express();
 
 // Implement CORS restrictions
 app.use(cors());
-app.options("*", cors());
 
 // Implement rate limiting for API from same IP
 app.use(

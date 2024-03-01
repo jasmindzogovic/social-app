@@ -67,7 +67,6 @@ const UserSchema = new mongoose.Schema({
     {
       type: ObjectId,
       ref: "User",
-      unique: true,
     },
   ],
   active: {
