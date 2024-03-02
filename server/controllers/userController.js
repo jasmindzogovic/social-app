@@ -42,10 +42,9 @@ exports.signUp = async (req, res, next) => {
     // Send verification email to user to activate account
     sendVerificationEmail(user.activationString, user.email);
 
-    // Set the status and send the new user with the accompanying json
     res
       .status(201)
-      .json({ status: "success", message: "Email verification sent" });
+      .json({ status: "success", message: "Email verification sent." });
   } catch (error) {
     res.status(400).json({ status: "fail", message: error.message });
   }
@@ -104,20 +103,20 @@ exports.verifyAccount = async (req, res) => {
       activationString: req.params.verificationString,
     });
 
-    // If the user exists delete the activation string, make user active
-    if (user) {
-      user.activationString = undefined;
-      user.active = true;
-      await user.save({ validateBeforeSave: false });
-    }
+    // If the user does not exist throw a new error
+    if (!user)
+      throw new Error(
+        "That is not a valid verification code. Please check for errors."
+      );
 
-    res
-      .status(200)
-      .json({
-        status: "success",
-        message: "User verification complete.",
-        data: { user },
-      });
+    user.activationString = undefined;
+    user.active = true;
+    await user.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      status: "success",
+      message: "User verification complete. You can log in now.",
+    });
   } catch (error) {
     console.log(error);
     res.status(400).json({ status: "fail", message: error.message });
