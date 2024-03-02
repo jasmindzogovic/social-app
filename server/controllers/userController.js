@@ -43,7 +43,9 @@ exports.signUp = async (req, res, next) => {
     sendVerificationEmail(user.activationString, user.email);
 
     // Set the status and send the new user with the accompanying json
-    res.status(201).json({ status: "success", data: { user } });
+    res
+      .status(201)
+      .json({ status: "success", message: "Email verification sent" });
   } catch (error) {
     res.status(400).json({ status: "fail", message: error.message });
   }
@@ -111,7 +113,11 @@ exports.verifyAccount = async (req, res) => {
 
     res
       .status(200)
-      .json({ status: "success", message: "User verification complete." });
+      .json({
+        status: "success",
+        message: "User verification complete.",
+        data: { user },
+      });
   } catch (error) {
     console.log(error);
     res.status(400).json({ status: "fail", message: error.message });
