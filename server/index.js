@@ -11,6 +11,7 @@ const compression = require("compression");
 // ROUTES
 const userRouter = require("./routes/userRoutes");
 const postsRouter = require("./routes/postsRoutes");
+const commentsRouter = require("./routes/commentRoutes");
 
 const app = express();
 
@@ -49,5 +50,6 @@ app.use(compression());
 // ROUTES
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/posts", postsRouter);
+app.use("/api/v1/comments", commentsRouter);
 
 module.exports = app;
