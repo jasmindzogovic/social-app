@@ -18,6 +18,9 @@ router.post("/signup", upload.single("image"), signUp);
 router.post("/login", logIn);
 router.get("/logout", logOut);
 
+// Account verification upon sign up route
+router.get("/:verificationString", verifyAccount);
+
 // User routes
 router.get("/", protectRoute, getUsers);
 router
@@ -25,7 +28,5 @@ router
   .get(protectRoute, getUser)
   .patch(protectRoute, addRemoveFriends);
 
-// Account verification upon sign up route
-router.get("/:verificationString", verifyAccount);
 
 module.exports = router;
