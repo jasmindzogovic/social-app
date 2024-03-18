@@ -52,6 +52,8 @@ const UserSchema = new mongoose.Schema({
       message: "Passwords must match in order to be able to open an account",
     },
   },
+  passwordResetToken: String,
+  passwordResetExpires: Date,
   location: {
     type: String,
     required: [true, "Please input your current location."],
@@ -91,6 +93,13 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
+UserSchema.pre("save", function (next) {
+  if (!this.isModified("password") || this.isNew) return next();
+
+  this.changedPasswordAt = Date.now();
+  next();
+});
+
 // POPULATE THE FRIEND WITH SELECTED FIELDS
 UserSchema.pre(/^find/, function (next) {
   this.populate({
@@ -104,6 +113,20 @@ UserSchema.pre(/^find/, function (next) {
 // SCHEMA METHOD TO COMPARE ENCRYPTED PASSWORD WITH INPUT
 UserSchema.methods.correctPassword = async function (input, userPassword) {
   return await bcrypt.compare(input, userPassword);
+};
+
+// SCHEMA METHOD TO CREATE A PASSWORD RESET TOKEN
+UserSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
 };
 
 module.exports = mongoose.model("User", UserSchema);

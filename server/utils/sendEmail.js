@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-exports.sendVerificationEmail = async (verificationString, userEmail) => {
+exports.sendEmail = async (textContent, userEmail, subject) => {
   try {
     const transporter = nodemailer.createTransport({
       host: process.env.NODEMAILER_HOST,
@@ -15,8 +15,8 @@ exports.sendVerificationEmail = async (verificationString, userEmail) => {
     const emailOptions = {
       from: process.env.NODEMAILER_ADMIN,
       to: `${userEmail}`,
-      subject: "Verification email from Social App",
-      text: `Please click the following link to activate your account: http://127.0.0.1:8000/api/v1/users/${verificationString}`,
+      subject,
+      text: `${textContent}`,
     };
 
     await transporter.sendMail(emailOptions);

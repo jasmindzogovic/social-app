@@ -1,9 +1,10 @@
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 const User = require("../models/userModel");
 
 const { signToken } = require("../utils/jwtSignature");
-const { sendVerificationEmail } = require("../utils/sendVerificationEmail");
+const { sendEmail } = require("../utils/sendEmail");
 
 const cookieOptions = {
   expiresIn: new Date(
@@ -14,7 +15,7 @@ const cookieOptions = {
 };
 
 // Sign up functionality
-exports.signUp = async (req, res, next) => {
+exports.signUp = async (req, res) => {
   try {
     const {
       firstName,
@@ -39,8 +40,12 @@ exports.signUp = async (req, res, next) => {
       occupation,
     });
 
+    // Set the subject and the content of the email
+    const subject = "Verification email from Social App";
+    const textContent = `Please click the following link to activate your account: http://127.0.0.1:8000/api/v1/users/${user.activationString}`;
+
     // Send verification email to user to activate account
-    sendVerificationEmail(user.activationString, user.email);
+    sendEmail(textContent, user.email, subject);
 
     res
       .status(201)
@@ -51,7 +56,7 @@ exports.signUp = async (req, res, next) => {
 };
 
 // Log In functionality
-exports.logIn = async (req, res, next) => {
+exports.logIn = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -109,9 +114,13 @@ exports.verifyAccount = async (req, res) => {
         "That is not a valid verification code. Please check for errors."
       );
 
+    // If the user does exist delete the activationString and set active property to true
     user.activationString = undefined;
     user.active = true;
     await user.save({ validateBeforeSave: false });
+
+    // Send welcome email
+    await sendEmail("Welcome to the Social App family.", user.email, "Welcome");
 
     res.status(200).json({
       status: "success",
@@ -147,6 +156,84 @@ exports.protectRoute = async (req, res, next) => {
     next();
   } catch (error) {
     res.status(400).json({ status: "fail", message: error.message });
+  }
+};
+
+// Forgot Password
+exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  // Find user with the provided email
+  const user = await User.findOne({ email });
+  try {
+    // If user doesn't exist throw error below
+    if (!user)
+      throw new Error("No user was found with that email. Please try again.");
+
+    // If user exists create a passsword reset token with the user schema method
+    const resetToken = user.createPasswordResetToken();
+    await user.save({ validateBeforeSave: false });
+
+    const resetURL = `${req.protocol}://${req.get(
+      "host"
+    )}/api/v1/users/resetPassword/${resetToken}`;
+
+    const subject = "Your password reset token (valid for only 10 minutes)!";
+
+    await sendEmail(resetURL, user.email, subject);
+
+    res.status(200).json({
+      status: "success",
+      message: "Password reset token sent to email.",
+    });
+  } catch (error) {
+    // If there is an error delete the reset token and the expiration time
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save({ validateBeforeSave: false });
+
+    res.status(500).json({
+      status: "fail",
+      message: "There was an error sending the email. Try again later.",
+    });
+  }
+};
+
+exports.resetPassword = async (req, res) => {
+  try {
+    // Get the hashed token
+    const hashedToken = crypto
+      .createHash("sha256")
+      .update(req.params.token)
+      .digest("hex");
+
+    // Find the user with that particular token
+    const user = await User.findOne({
+      passwordResetToken: hashedToken,
+      passwordResetExpires: { $gt: Date.now() },
+    });
+
+    // Throw an error if the token has expired or the user doesn't exist
+    if (!user)
+      throw new Error("The token has expired or the user does not exist.");
+
+    // Save the new user password
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save();
+
+    res.status(200).json({
+      status: "success",
+      message: "Password has been successfully changed.",
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      message: "There was an error resetting the password.",
+      error: error.message,
+    });
   }
 };
 
