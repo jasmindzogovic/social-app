@@ -21,7 +21,7 @@ router.post("/login", logIn);
 router.get("/logout", logOut);
 
 // Account verification upon sign up route
-router.get("/:verificationString", verifyAccount);
+router.get("/:activationString", verifyAccount);
 
 // Forgot password and reset password routes
 router.post("/forgotPassword", forgotPassword);

@@ -41,8 +41,10 @@ exports.signUp = async (req, res) => {
     });
 
     // Set the subject and the content of the email
-    const subject = "Verification email from Social App";
-    const textContent = `Please click the following link to activate your account: http://127.0.0.1:8000/api/v1/users/${user.activationString}`;
+    const subject = "Verification email from Social App!";
+    const textContent = `Please click the following link to activate your account: ${
+      req.protocol
+    }://${req.get("host")}/api/v1/users/${user.activationString}`;
 
     // Send verification email to user to activate account
     sendEmail(textContent, user.email, subject);
@@ -103,10 +105,9 @@ exports.logOut = (req, res) => {
 // Verify account
 exports.verifyAccount = async (req, res) => {
   try {
+    const { activationString } = req.params;
     // Find user with the verification string in the params
-    const user = await User.findOne({
-      activationString: req.params.verificationString,
-    });
+    const user = await User.findOne({ activationString });
 
     // If the user does not exist throw a new error
     if (!user)
