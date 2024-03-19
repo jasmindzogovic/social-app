@@ -54,6 +54,7 @@ const UserSchema = new mongoose.Schema({
   },
   passwordResetToken: String,
   passwordResetExpires: Date,
+  changedPasswordAt: Date,
   location: {
     type: String,
     required: [true, "Please input your current location."],
