@@ -1,14 +1,11 @@
 import axios from "axios";
 
-export async function signUp() {
-  try {
-  } catch (error) {}
-}
+export async function signUp() {}
 
 export async function logIn() {
-  try {
-    const data = axios.get()
-  } catch (error) {}
+  const data = axios
+    .get("127.0.0.1:8000/api/v1/users/login")
+    .then((res) => res.data);
 }
 
 export async function logOut() {}
