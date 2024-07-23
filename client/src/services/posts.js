@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export async function getAllPosts() {}
 
 export async function createNewPost() {}
