@@ -26,7 +26,7 @@ export function useSignUp() {
         location,
         occupation
       ),
-    onSuccess: () => navigate("/home", { replace: true }),
+    // onSuccess: () => navigate("/home", { replace: true }),
     onError: (error) => {
       console.error("Error", error);
     },
