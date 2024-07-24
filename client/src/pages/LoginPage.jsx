@@ -1,8 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
-// import { FormControl, FormLabel } from "@mui/material";
-// import TextField from "@mui/material/TextField";
-// import Button from "@mui/material/Button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
 import { useLogin } from "./useLogin";
 
@@ -10,6 +8,7 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { mutate, isLoading, error } = useLogin();
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -40,10 +39,18 @@ function LoginPage() {
             setPassword(e.target.value);
           }}
         />
-        <button type="submit" disabled={isLoading}>
+        <Button type="submit" disabled={isLoading}>
           {isLoading ? "Logging In" : " Log In"}
-        </button>
+        </Button>
         {error && <p style={{ color: "red" }}>Login failed: {error.message}</p>}
+        <div>
+          <Button onClick={() => navigate("/signup")}>
+            Not a member yet? Sign up.
+          </Button>
+          <Button onClick={() => navigate("/forgot-password")}>
+            Forgot your password?
+          </Button>
+        </div>
       </form>
     </>
   );

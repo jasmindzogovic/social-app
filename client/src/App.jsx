@@ -8,6 +8,8 @@ import { themeSettings } from "./theme";
 
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ProfilePage from "./pages/ProfilePage";
 
 const queryClient = new QueryClient();
@@ -24,6 +26,8 @@ function App() {
             <CssBaseline />
             <Routes>
               <Route path="/" element={<LoginPage />} />
+              <Route path="signup" element={<SignUpPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
               <Route path="home" element={<HomePage />} />
               <Route path="/profile/:userId" element={<ProfilePage />} />
             </Routes>

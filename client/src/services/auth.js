@@ -1,6 +1,48 @@
 import axios from "axios";
 
-export async function signUp() {}
+export async function signUp(
+  firstName,
+  lastName,
+  email,
+  password,
+  passwordConfirm,
+  image,
+  location,
+  occupation
+) {
+  if (password !== passwordConfirm) {
+    throw new Error("Passwords do not match.");
+  }
+
+  try {
+    const res = await axios.post(
+      "http://127.0.0.1:8000/api/v1/users/signup",
+      {
+        firstName,
+        lastName,
+        email,
+        password,
+        passwordConfirm,
+        image,
+        location,
+        occupation,
+      },
+      { headers: { "Content-Type": "application/json" } }
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error(
+      "Sign up error",
+      error.response ? error.response.data : error.message
+    );
+    throw new Error(
+      error.response
+        ? error.response.data.message
+        : "An error occurred during sign up."
+    );
+  }
+}
 
 export async function logIn(email, password) {
   try {
@@ -9,7 +51,6 @@ export async function logIn(email, password) {
       password,
     });
 
-    console.log("Login response", res.data);
     return res.data;
   } catch (error) {
     console.error(error);
