@@ -1,55 +1,50 @@
-import { useQuery } from "@tanstack/react-query";
-import { FormControl, FormLabel } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { useFormik } from "formik";
+import { useMutation } from "@tanstack/react-query";
+// import { FormControl, FormLabel } from "@mui/material";
+// import TextField from "@mui/material/TextField";
+// import Button from "@mui/material/Button";
+import { useState } from "react";
 
-import {
-  signUp,
-  logIn,
-  logOut,
-  forgotPassword,
-  resetPassword,
-} from "../services/auth";
+import { useLogin } from "./useLogin";
 
 function LoginPage() {
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { mutate, isLoading, error } = useLogin();
 
-  const {
-    status,
-    error,
-    data: user,
-  } = useQuery({ queryKey: ["user"], queryFn: logIn });
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!email || !password) return;
+
+    mutate({ email, password });
+  }
 
   return (
     <>
-      <FormControl autoComplete="off">
-        <FormLabel htmlFor="email">Email</FormLabel>
-        <TextField
-          size="small"
-          value={formik.values.email}
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="email">Email</label>
+        <input
           id="email"
           type="email"
           placeholder="Enter your email"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
+          onChange={(e) => {
+            e.preventDefault();
+            setEmail(e.target.value);
+          }}
         />
-        <TextField
-          size="small"
-          value={formik.values.password}
+        <input
           id="password"
           type="password"
           placeholder="Enter your password"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
+          onChange={(e) => {
+            e.preventDefault();
+            setPassword(e.target.value);
+          }}
         />
-        <Button>Submit</Button>
-      </FormControl>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Logging In" : " Log In"}
+        </button>
+        {error && <p style={{ color: "red" }}>Login failed: {error.message}</p>}
+      </form>
     </>
   );
 }
