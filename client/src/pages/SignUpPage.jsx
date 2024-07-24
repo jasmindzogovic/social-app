@@ -26,6 +26,7 @@ function SignUpPage() {
       passwordConfirm,
       image,
       location,
+      occupation,
     };
 
     if (
@@ -38,6 +39,10 @@ function SignUpPage() {
       !location
     )
       return;
+
+    if (password !== passwordConfirm) {
+      throw new Error("Passwords do not match.");
+    }
 
     mutate(formData);
   }

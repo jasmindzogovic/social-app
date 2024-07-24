@@ -10,10 +10,6 @@ export async function signUp(
   location,
   occupation
 ) {
-  if (password !== passwordConfirm) {
-    throw new Error("Passwords do not match.");
-  }
-
   try {
     const res = await axios.post(
       "http://127.0.0.1:8000/api/v1/users/signup",
