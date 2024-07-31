@@ -11,6 +11,7 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import SignUpVerificationPage from "./pages/SignUpVerificationPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import ProfilePage from "./pages/ProfilePage";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,10 @@ function App() {
               <Route path="signup" element={<SignUpPage />} />
               <Route path=":id" element={<SignUpVerificationPage />} />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route
+                path="/reset-password/:id"
+                element={<ResetPasswordPage />}
+              />
               <Route path="home" element={<HomePage />} />
               <Route path="/profile/:userId" element={<ProfilePage />} />
             </Routes>

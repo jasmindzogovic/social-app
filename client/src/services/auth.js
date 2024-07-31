@@ -63,6 +63,22 @@ export async function logOut() {
   }
 }
 
-export async function forgotPassword() {}
+export async function forgotPassword(email) {
+  try {
+    const res = await axios.post(
+      "http://127.0.0.1:8000/api/v1/users/forgotPassword",
+      { email }
+    );
+
+    console.log("Password reset email sent successfully.", res.data);
+    return res.data;
+  } catch (error) {
+    console.error(
+      "Error sending password reset email:",
+      error.response ? error.response.data : error.message
+    );
+    throw new Error(error.response ? error.response.data : error.message);
+  }
+}
 
 export async function resetPassword() {}
