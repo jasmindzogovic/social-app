@@ -40,6 +40,26 @@ export async function signUp(
   }
 }
 
+export async function signUpVerification(param) {
+  try {
+    const res = await axios.get(
+      `http://127.0.0.1:8000/api/v1/users/verify/${param}`
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error(
+      "Sign up verification error",
+      error.response ? error.response.data : error.message
+    );
+    throw new Error(
+      error.response
+        ? error.response.data.message
+        : "An error occurred during sign up verification."
+    );
+  }
+}
+
 export async function logIn(email, password) {
   try {
     const res = await axios.post("http://127.0.0.1:8000/api/v1/users/login", {

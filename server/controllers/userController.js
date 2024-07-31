@@ -42,9 +42,7 @@ exports.signUp = async (req, res) => {
 
     // Set the subject and the content of the email
     const subject = "Verification email from Social App!";
-    const textContent = `Please click the following link to activate your account: ${
-      req.protocol
-    }://${req.get("host")}/api/v1/users/${user.activationString}`;
+    const textContent = `Please click the following link to activate your account: http://localhost:5173/verify/${user.activationString}`;
 
     // Send verification email to user to activate account
     sendEmail(textContent, user.email, subject);
