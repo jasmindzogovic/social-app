@@ -54,7 +54,14 @@ export async function logIn(email, password) {
   }
 }
 
-export async function logOut() {}
+export async function logOut() {
+  try {
+    const res = await axios.get("http://127.0.0.1:8000/api/v1/users/logout");
+  } catch (error) {
+    console.error(error);
+    throw new Error(error);
+  }
+}
 
 export async function forgotPassword() {}
 

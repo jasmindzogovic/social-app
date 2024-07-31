@@ -130,7 +130,7 @@ function SignUpPage() {
             setOccupation(e.target.value);
           }}
         />
-        <Button type="submit">{isLoading ? "Signing Up" : " Sign In"}</Button>
+        <Button type="submit">{isLoading ? "Signing Up" : " Sign Up"}</Button>
         {error && <p style={{ color: "red" }}>Login failed: {error.message}</p>}
         <div></div>
       </form>
