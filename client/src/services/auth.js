@@ -49,17 +49,33 @@ export async function logIn(email, password) {
 
     return res.data;
   } catch (error) {
-    console.error(error);
-    throw new Error(error);
+    console.error(
+      "Log in error",
+      error.response ? error.response.data : error.message
+    );
+    throw new Error(
+      error.response
+        ? error.response.data.message
+        : "An error occurred during log in."
+    );
   }
 }
 
 export async function logOut() {
   try {
     const res = await axios.get("http://127.0.0.1:8000/api/v1/users/logout");
+
+    return res.data;
   } catch (error) {
-    console.error(error);
-    throw new Error(error);
+    console.error(
+      "Log out error",
+      error.response ? error.response.data : error.message
+    );
+    throw new Error(
+      error.response
+        ? error.response.data.message
+        : "An error occurred during log out."
+    );
   }
 }
 

@@ -27,7 +27,10 @@ export function useSignUp() {
         occupation
       ),
     onError: (error) => {
-      console.error("Error", error);
+      console.error(
+        "Error occurred during sign up:",
+        error.response ? error.response.data : error.message
+      );
     },
   });
 

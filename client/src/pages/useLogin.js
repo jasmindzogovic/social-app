@@ -10,7 +10,10 @@ export function useLogin() {
     mutationFn: ({ email, password }) => logIn(email, password),
     onSuccess: () => navigate("/home", { replace: true }),
     onError: (error) => {
-      console.error("Error", error);
+      console.error(
+        "Error occurred during log in:",
+        error.response ? error.response.data : error.message
+      );
     },
   });
 

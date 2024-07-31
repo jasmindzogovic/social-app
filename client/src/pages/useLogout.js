@@ -10,7 +10,10 @@ export function useLogout() {
     mutationFn: () => logOut(),
     onSuccess: () => navigate("/", { replace: true }),
     onError: (error) => {
-      console.error("Error", error);
+      console.error(
+        "Error occurred during log out:",
+        error.response ? error.response.data : error.message
+      );
     },
   });
 
