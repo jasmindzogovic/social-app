@@ -13,7 +13,7 @@ function SignUpPage() {
   const [location, setLocation] = useState("");
   const [occupation, setOccupation] = useState("");
 
-  const { mutate, isLoading, error } = useSignUp();
+  const { mutate, isLoading, isSuccess, error } = useSignUp();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -131,8 +131,13 @@ function SignUpPage() {
           }}
         />
         <Button type="submit">{isLoading ? "Signing Up" : " Sign Up"}</Button>
+        {isSuccess && (
+          <p>
+            Sign up was successful. Please check your email to activate your
+            account.
+          </p>
+        )}
         {error && <p style={{ color: "red" }}>Login failed: {error.message}</p>}
-        <div></div>
       </form>
     </>
   );

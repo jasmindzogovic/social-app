@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export function useSignUp() {
   const navigate = useNavigate();
 
-  const { isLoading, mutate, error } = useMutation({
+  const { isLoading, mutate, isSuccess, error } = useMutation({
     mutationFn: ({
       firstName,
       lastName,
@@ -26,11 +26,10 @@ export function useSignUp() {
         location,
         occupation
       ),
-    // onSuccess: () => navigate("/home", { replace: true }),
     onError: (error) => {
       console.error("Error", error);
     },
   });
 
-  return { isLoading, mutate, error };
+  return { isLoading, mutate, isSuccess, error };
 }
