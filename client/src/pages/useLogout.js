@@ -1,14 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
-import { logIn } from "../services/auth";
+import { logOut } from "../services/auth";
 
-export function useLogin() {
+export function useLogout() {
   const navigate = useNavigate();
 
   const { isLoading, mutate, error } = useMutation({
-    mutationFn: ({ email, password }) => logIn(email, password),
-    onSuccess: () => navigate("/home", { replace: true }),
+    mutationFn: () => logOut(),
+    onSuccess: () => navigate("/", { replace: true }),
     onError: (error) => {
       console.error("Error", error);
     },
