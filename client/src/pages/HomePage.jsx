@@ -1,13 +1,18 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 import { useLogout } from "./useLogout";
+
+import NavBar from "../components/NavBar";
 
 function HomePage() {
   const { mutate, isLoading, error } = useLogout();
 
   return (
     <>
-      {isLoading && <p>Logging out..</p>}
+      <Box>
+        <NavBar />
+      </Box>
+      {isLoading && <p>Logging in..</p>}
 
       <div>Home Page</div>
       <Button onClick={mutate}>Log Out</Button>

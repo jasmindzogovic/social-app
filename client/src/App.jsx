@@ -29,7 +29,10 @@ function App() {
             <Routes>
               <Route path="/" element={<LoginPage />} />
               <Route path="signup" element={<SignUpPage />} />
-              <Route path="/verify/:activationString" element={<SignUpVerificationPage />} />
+              <Route
+                path="/verify/:activationString"
+                element={<SignUpVerificationPage />}
+              />
               <Route path="/forgot-password" element={<ForgotPasswordPage />} />
               <Route
                 path="/reset-password/:id"
