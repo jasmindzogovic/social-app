@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 import { useLogout } from "./useLogout";
 
@@ -12,12 +12,14 @@ function HomePage() {
       <Box>
         <NavBar />
       </Box>
-      {isLoading && <p>Logging in..</p>}
+      {isLoading && <Typography>Logging in..</Typography>}
 
-      <div>Home Page</div>
+      <Typography>Home Page</Typography>
       <Button onClick={mutate}>Log Out</Button>
       {error && (
-        <p>There was an error logging you out. Please try again later.</p>
+        <Typography sx={{ color: "red" }}>
+          There was an error logging you out. Please try again later.
+        </Typography>
       )}
     </>
   );

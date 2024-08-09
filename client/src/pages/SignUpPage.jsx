@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 
 import { useSignUp } from "./useSignUp";
@@ -132,12 +132,16 @@ function SignUpPage() {
         />
         <Button type="submit">{isLoading ? "Signing Up" : " Sign Up"}</Button>
         {isSuccess && (
-          <p>
+          <Typography>
             Sign up was successful. Please check your email to activate your
             account.
-          </p>
+          </Typography>
         )}
-        {error && <p style={{ color: "red" }}>Login failed: {error.message}</p>}
+        {error && (
+          <Typography sx={{ color: "red" }}>
+            Login failed: {error.message}
+          </Typography>
+        )}
       </form>
     </>
   );

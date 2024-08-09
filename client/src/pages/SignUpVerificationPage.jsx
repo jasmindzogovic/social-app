@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { Typography } from "@mui/material";
 
 import { useSignUpVerification } from "./useSignUpVerification";
 
@@ -14,16 +15,24 @@ function SignUpVerificationPage() {
   }, [activationString, mutate]);
 
   if (isLoading) {
-    return <p>Verifying your email...</p>;
+    return <Typography variant="h3">Verifying your email...</Typography>;
   }
 
   if (isSuccess) {
-    return <p>User verification complete. You can log in now.</p>;
+    return (
+      <Typography variant="h3">
+        User verification complete. You can log in now.
+      </Typography>
+    );
   }
 
   if (error) {
     console.error("Verification error", error);
-    return <p>Error occurred: {error.message}</p>;
+    return (
+      <Typography sx={{ color: "red" }} variant="h3">
+        Error occurred: {error.message}
+      </Typography>
+    );
   }
 
   return null;

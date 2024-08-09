@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 import { useForgotPassword } from "./useForgotPassword";
 
@@ -32,8 +32,10 @@ function ForgotPasswordPage() {
         <Button type="submit" disabled={isLoading}>
           {isLoading ? "Sending..." : "Forgot Password"}
         </Button>
-        {isSuccess && <p>Please check your email</p>}
-        {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
+        {isSuccess && <Typography>Please check your email</Typography>}
+        {error && (
+          <Typography sx={{ color: "red" }}>Error: {error.message}</Typography>
+        )}
       </form>
     </>
   );

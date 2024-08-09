@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 import { useLogin } from "./useLogin";
 
@@ -42,7 +42,11 @@ function LoginPage() {
         <Button type="submit" disabled={isLoading}>
           {isLoading ? "Logging In" : " Log In"}
         </Button>
-        {error && <p style={{ color: "red" }}>Login failed: {error.message}</p>}
+        {error && (
+          <Typography style={{ color: "red" }}>
+            Login failed: {error.message}
+          </Typography>
+        )}
         <div>
           <Button onClick={() => navigate("/signup")}>
             Not a member yet? Sign up.
