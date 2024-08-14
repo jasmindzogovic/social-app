@@ -1,18 +1,22 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Typography } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigation } from "react-router-dom";
 
-import { useSignUpVerification } from "./useSignUpVerification";
+import { signUpVerification } from "../services/auth";
 
 function SignUpVerificationPage() {
+  const navigate = useNavigation();
   const { activationString } = useParams();
-  const { isLoading, mutate, isSuccess, error } = useSignUpVerification();
 
-  useEffect(() => {
-    if (activationString) {
-      mutate({ param: activationString });
-    }
-  }, [activationString, mutate]);
+  const { data, isLoading, error } = useQuery({
+    queryFn: () => {
+      signUpVerification(activationString);
+      navigate("/home", { replace: true });
+    },
+    queryKey: [param],
+  });
 
   if (isLoading) {
     return <Typography variant="h3">Verifying your email...</Typography>;

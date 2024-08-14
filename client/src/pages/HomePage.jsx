@@ -1,11 +1,18 @@
 import { Box, Button, Typography } from "@mui/material";
-
-import { useLogout } from "./useLogout";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 import NavBar from "../components/NavBar";
+import { logOut } from "../services/auth";
 
 function HomePage() {
-  const { mutate, isLoading, error } = useLogout();
+  const navigate = useNavigate();
+  const { data, isLoading, error } = useQuery({
+    queryFn: () => {
+      logOut();
+      navigate("/", { replace: true });
+    },
+  });
 
   return (
     <>
