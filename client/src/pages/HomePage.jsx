@@ -8,10 +8,7 @@ import { logOut } from "../services/auth";
 function HomePage() {
   const navigate = useNavigate();
   const { data, isLoading, error } = useQuery({
-    queryFn: () => {
-      logOut();
-      navigate("/", { replace: true });
-    },
+    queryFn: () => logOut(),
   });
 
   return (
@@ -22,7 +19,14 @@ function HomePage() {
       {isLoading && <Typography>Logging in..</Typography>}
 
       <Typography>Home Page</Typography>
-      <Button onClick={mutate}>Log Out</Button>
+      <Button
+        onClick={() => {
+          mutate();
+          navigate("/", { replace: true });
+        }}
+      >
+        Log Out
+      </Button>
       {error && (
         <Typography sx={{ color: "red" }}>
           There was an error logging you out. Please try again later.
