@@ -124,4 +124,19 @@ export async function forgotPassword(email) {
   }
 }
 
-export async function resetPassword() {}
+export async function resetPassword(password, passwordConfirm, token) {
+  try {
+    const res = await axios.patch(
+      `http://127.0.0.1:8000/api/v1/users/resetPassword/${token}`,
+      { password, passwordConfirm }
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error(
+      "Error resetting password:",
+      error.response ? error.response.data : error.message
+    );
+    throw new Error(error.response ? error.response.data : error.message);
+  }
+}
