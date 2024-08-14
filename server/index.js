@@ -16,7 +16,7 @@ const commentsRouter = require("./routes/commentRoutes");
 const app = express();
 
 // Implement CORS restrictions
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // Implement rate limiting for API from same IP
 app.use(
@@ -30,7 +30,6 @@ app.use(
 
 // SET SECURITY HTTP HEADERS WITH HELMET
 app.use(helmet());
-
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 // DATA SANITIZATION AGAINST NOSQL QUERY INJECTION

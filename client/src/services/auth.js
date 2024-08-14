@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.withCredentials = true;
 
 export async function signUp(
   firstName,
@@ -62,10 +63,14 @@ export async function signUpVerification(param) {
 
 export async function logIn(email, password) {
   try {
-    const res = await axios.post("http://127.0.0.1:8000/api/v1/users/login", {
-      email,
-      password,
-    });
+    const res = await axios.post(
+      "http://127.0.0.1:8000/api/v1/users/login",
+      {
+        email,
+        password,
+      },
+      { withCredentials: true }
+    );
 
     return res.data;
   } catch (error) {
@@ -83,7 +88,9 @@ export async function logIn(email, password) {
 
 export async function logOut() {
   try {
-    const res = await axios.get("http://127.0.0.1:8000/api/v1/users/logout");
+    const res = await axios.get("http://127.0.0.1:8000/api/v1/users/logout", {
+      withCredentials: true,
+    });
 
     return res.data;
   } catch (error) {

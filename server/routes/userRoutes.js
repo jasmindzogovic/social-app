@@ -30,7 +30,7 @@ router.patch("/resetPassword/:token", resetPassword);
 // User routes
 router.get("/", protectRoute, getUsers);
 router
-  .route("/:userID")
+  .route("/:userId")
   .get(protectRoute, getUser)
   .patch(protectRoute, addRemoveFriends);
 

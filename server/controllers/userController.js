@@ -7,10 +7,11 @@ const { signToken } = require("../utils/jwtSignature");
 const { sendEmail } = require("../utils/sendEmail");
 
 const cookieOptions = {
-  expiresIn: new Date(
+  expires: new Date(
     Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
   ),
   secure: true,
+  sameSite: "None",
   httpOnly: true,
 };
 
@@ -88,7 +89,9 @@ exports.logIn = async (req, res) => {
       token,
     });
   } catch (error) {
-    res.status(400).json({ status: "fail", message: error.message });
+    res
+      .status(400)
+      .json({ status: "fail", message: error.message, stack: error.stack });
   }
 };
 
@@ -145,7 +148,7 @@ exports.protectRoute = async (req, res, next) => {
     const verified = jwt.verify(token, process.env.JWT_SECRET);
 
     // Check if user still exists
-    const currentUser = await User.findById(verified.payload);
+    const currentUser = await User.findById(verified.id);
 
     // If not throw an error
     if (!currentUser)
@@ -153,9 +156,10 @@ exports.protectRoute = async (req, res, next) => {
 
     // Otherwise send the user in the request and grant access
     req.user = currentUser;
+
     next();
   } catch (error) {
-    res.status(400).json({ status: "fail", message: error.message });
+    res.status(401).json({ status: "fail", message: error.message });
   }
 };
 
@@ -251,11 +255,16 @@ exports.getUsers = async (req, res) => {
 // Get a single user
 exports.getUser = async (req, res) => {
   try {
-    const { userID } = req.params;
+    const { userId } = req.params;
 
-    const user = await User.findOne({ _id: userID });
+    const user = await User.findOne({ _id: userId });
 
-    if (!user) throw new Error("No account exists with those credentials.");
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "No account exists with those credentials.",
+      });
+    }
 
     res.status(200).json({ status: "success", data: { user } });
   } catch (error) {

@@ -39,7 +39,7 @@ function App() {
                 element={<ResetPasswordPage />}
               />
               <Route path="home" element={<HomePage />} />
-              <Route path="/profile/:userID" element={<ProfilePage />} />
+              <Route path="/profile/:userId" element={<ProfilePage />} />
             </Routes>
           </ThemeProvider>
         </BrowserRouter>
