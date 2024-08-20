@@ -113,7 +113,6 @@ export async function forgotPassword(email) {
       { email }
     );
 
-    console.log("Password reset email sent successfully.", res.data);
     return res.data;
   } catch (error) {
     console.error(

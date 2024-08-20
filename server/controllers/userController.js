@@ -5,6 +5,7 @@ const User = require("../models/userModel");
 
 const { signToken } = require("../utils/jwtSignature");
 const { sendEmail } = require("../utils/sendEmail");
+const { default: mongoose } = require("mongoose");
 
 const cookieOptions = {
   expires: new Date(
@@ -274,17 +275,44 @@ exports.getUser = async (req, res) => {
 exports.addRemoveFriends = async (req, res) => {
   try {
     const { operation, friendID } = req.body;
-    const { userID } = req.params;
+    const { userId } = req.params;
 
-    const user = await User.findOne({ _id: userID });
+    const friendObjectId = new mongoose.Types.ObjectId(friendID);
 
-    if (operation === "add") {
-      await User.findOneAndUpdate({ $addToSet: { friends: friendID } });
-    } else if (operation === "remove") {
-      await User.findOneAndUpdate({ $pull: { friends: friendID } });
+    const user = await User.findById(userId);
+
+    if (!user)
+      return res
+        .status(404)
+        .json({ status: "fail", message: "User not found." });
+
+    const isFriend = user.friends.some((friend) =>
+      friend.equals(friendObjectId)
+    );
+
+    if (operation === "add" && isFriend) {
+      return res.status(404).json({
+        status: "fail",
+        message: "This user is already in your friends list.",
+      });
+    } else if (operation === "remove" && !isFriend) {
+      return res.status(404).json({
+        status: "fail",
+        message: "This user is not on your friends list.",
+      });
     }
 
-    res.status(200).json({ message: "success", data: { user } });
+    if (operation === "add") {
+      await User.findByIdAndUpdate(userId, {
+        $addToSet: { friends: friendID },
+      });
+    } else if (operation === "remove") {
+      await User.findByIdAndUpdate(userId, { $pull: { friends: friendID } });
+    }
+
+    const updatedUser = await User.findById(userId);
+
+    res.status(200).json({ message: "success", data: { user: updatedUser } });
   } catch (error) {
     res.status(400).json({ status: "fail", message: error.message });
   }
