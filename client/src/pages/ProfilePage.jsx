@@ -5,6 +5,7 @@ import { Alert, Button, Snackbar, Typography } from "@mui/material";
 import { getUser } from "../services/users";
 import { useAddRemoveFriends } from "./useAddRemoveFriends";
 import NavBar from "../components/NavBar";
+import UserWidget from "../components/UserWidget";
 
 function ProfilePage() {
   const { userId } = useParams();
@@ -20,6 +21,8 @@ function ProfilePage() {
     queryKey: ["user", userId],
   });
 
+  console.log(data);
+
   if (isLoading) return <div>Loading...</div>;
 
   if (error) return <div>There was an error fetching the user.</div>;
@@ -33,6 +36,7 @@ function ProfilePage() {
   return (
     <>
       <NavBar data={data} />
+      <UserWidget />
       <div>
         {data.data.user.friends
           ? data.data.user.friends.map((friend) => {
