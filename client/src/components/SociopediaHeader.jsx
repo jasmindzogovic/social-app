@@ -1,7 +1,10 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function SociopediaHeader() {
-    const theme = useTheme()
+  const navigate = useNavigate();
+  const theme = useTheme();
+
   return (
     <Box
       width="100%"
@@ -10,9 +13,20 @@ function SociopediaHeader() {
       p="1rem 6%"
       textAlign="center"
     >
-      <Typography fontWeight="bold" fontSize="32px" color="primary">
+      <Button
+        type="submit"
+        sx={{
+          fontWeight: "bold",
+          fontSize: "2rem",
+          color: "primary",
+          "&:hover": {
+            backgroundColor: "transparent",
+          },
+        }}
+        onClick={() => navigate("/")}
+      >
         Sociopedia
-      </Typography>
+      </Button>
     </Box>
   );
 }

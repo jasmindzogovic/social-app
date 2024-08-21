@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button, Typography } from "@mui/material";
 
 import { useForgotPassword } from "./useForgotPassword";
+import SociopediaHeader from "../components/SociopediaHeader";
+import FormForgotPassword from "../components/FormForgotPassword";
 
 function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -17,26 +19,8 @@ function ForgotPasswordPage() {
 
   return (
     <>
-      <form onSubmit={handleForgotPassword}>
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          placeholder="Enter your email"
-          onChange={(e) => {
-            e.preventDefault();
-            setEmail(e.target.value);
-          }}
-          required
-        />
-        <Button type="submit" disabled={isLoading}>
-          {isLoading ? "Sending..." : "Forgot Password"}
-        </Button>
-        {isSuccess && <Typography>Please check your email</Typography>}
-        {error && (
-          <Typography sx={{ color: "red" }}>Error: {error.message}</Typography>
-        )}
-      </form>
+      <SociopediaHeader />
+      <FormForgotPassword />
     </>
   );
 }
