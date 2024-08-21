@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import {
   Box,
+  Button,
   IconButton,
   InputBase,
   Typography,
@@ -25,12 +26,14 @@ import {
   Close,
 } from "@mui/icons-material";
 
+import { useLogOut } from "../pages/useLogOut";
 import FlexBetween from "./FlexBetween";
 
-function NavBar() {
+function NavBar({ data }) {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const navigate = useNavigate();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const { mutate, isLoading, error } = useLogOut();
 
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
@@ -39,7 +42,11 @@ function NavBar() {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
-  const fullName = `Whatever`;
+  const fullName = `${data.data.user.firstName} ${data.data.user.lastName}`;
+
+  function handleLogOut() {
+    mutate();
+  }
 
   return (
     <FlexBetween
@@ -52,7 +59,6 @@ function NavBar() {
           fontWeight="bold"
           fontSize="clamp(1rem, 2rem, 2.25rem)"
           color="primary"
-          onClick={() => navigate("/")}
           sx={{ "&:hover": { color: primaryLight, cursor: "pointer" } }}
         >
           Sociopedia
@@ -61,7 +67,7 @@ function NavBar() {
           <FlexBetween
             backgroundColor={neutralLight}
             borderRadius="9px"
-            gap='3rem'
+            gap="3rem"
             padding="0.1rem 1.5rem"
           >
             <InputBase placeholder="Search..." />
@@ -171,6 +177,14 @@ function NavBar() {
           </FlexBetween>
         </Box>
       )}
+      <Button onClick={handleLogOut} sx={{ width: "10rem" }}>
+        {isLoading ? "Logging out" : "Log out"}
+        {error && (
+          <Typography>
+            Error while trying to log out. {error.message}
+          </Typography>
+        )}
+      </Button>
     </FlexBetween>
   );
 }

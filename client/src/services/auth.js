@@ -92,7 +92,7 @@ export async function logOut() {
       withCredentials: true,
     });
 
-    return res.data;
+    return res;
   } catch (error) {
     console.error(
       "Log out error",

@@ -32,8 +32,7 @@ function ProfilePage() {
 
   return (
     <>
-      <NavBar />
-      <Typography variant="h3">{data.data.user.firstName}</Typography>
+      <NavBar data={data} />
       <div>
         {data.data.user.friends
           ? data.data.user.friends.map((friend) => {
