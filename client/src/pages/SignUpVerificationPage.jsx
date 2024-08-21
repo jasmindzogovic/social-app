@@ -8,47 +8,31 @@ import SociopediaHeader from "../components/SociopediaHeader";
 function SignUpVerificationPage() {
   const { activationString } = useParams();
 
-  const { data, isLoading, error, isSuccess } = useQuery({
+  const { isLoading, error, isSuccess } = useQuery({
     queryFn: () => signUpVerification(activationString),
     queryKey: [activationString],
   });
 
-  if (isLoading) {
-    return (
-      <>
-        <SociopediaHeader />
+  return (
+    <>
+      <SociopediaHeader />
+      {isLoading && (
         <Typography variant="h3" sx={{ textAlign: "center" }}>
           Verifying your email...
         </Typography>
-        ;
-      </>
-    );
-  }
-
-  if (error) {
-    console.error("Verification error", error);
-    return (
-      <>
-        <SociopediaHeader />
+      )}
+      {error && (
         <Typography sx={{ color: "red", textAlign: "center" }} variant="h3">
           Error occurred: {error.message}
         </Typography>
-      </>
-    );
-  }
-
-  if (isSuccess) {
-    return (
-      <>
-        <SociopediaHeader />
+      )}
+      {isSuccess && (
         <Typography variant="h3" sx={{ textAlign: "center" }}>
           Account has been verified. You may log in to your account now.
         </Typography>
-      </>
-    );
-  }
-
-  return null;
+      )}
+    </>
+  );
 }
 
 export default SignUpVerificationPage;

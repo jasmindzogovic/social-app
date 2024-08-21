@@ -6,6 +6,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { EditOutlined } from "@mui/icons-material";
 import * as yup from "yup";
 import { Formik } from "formik";
 import Dropzone from "react-dropzone";
@@ -195,15 +196,20 @@ function FormSignup() {
                   {({ getRootProps, getInputProps }) => (
                     <Box
                       {...getRootProps()}
-                      border="2px dashed"
+                      border={`2px dashed ${theme.palette.primary.main}`}
                       p=".5rem"
                       sx={{ "&:hover": { cursor: "pointer" } }}
                     >
                       <input {...getInputProps()} />
                       <Typography>
-                        {values.image
-                          ? values.image.name
-                          : "Drag and drop or click to select an image"}
+                        {values.image ? (
+                          values.image.name
+                        ) : (
+                          <>
+                            "Drag and drop or click to select an image"
+                            <EditOutlined />
+                          </>
+                        )}
                       </Typography>
                     </Box>
                   )}
