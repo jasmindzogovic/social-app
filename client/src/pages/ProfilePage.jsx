@@ -9,10 +9,10 @@ import NavBar from "../components/NavBar";
 function ProfilePage() {
   const { userId } = useParams();
   const {
-    isLoading: addingRemovingLoading,
+    isLoading: friendListLoading,
     mutate,
     status,
-    error: mutationError,
+    error: friendListError,
   } = useAddRemoveFriends();
 
   const { data, isLoading, error } = useQuery({
@@ -46,7 +46,7 @@ function ProfilePage() {
                     type="submit"
                     onClick={() => handleAddRemoveFriend("add", friend._id)}
                   >
-                    {addingRemovingLoading && status !== "success"
+                    {friendListLoading && status !== "success"
                       ? "Adding to friends list"
                       : "Add"}
                   </Button>
@@ -54,7 +54,7 @@ function ProfilePage() {
                     type="submit"
                     onClick={() => handleAddRemoveFriend("remove", friend._id)}
                   >
-                    {addingRemovingLoading && status !== "success"
+                    {friendListLoading && status !== "success"
                       ? "Removing from friends list"
                       : "Remove"}
                   </Button>
@@ -63,10 +63,11 @@ function ProfilePage() {
             })
           : ""}
       </div>
-      {mutationError && (
-        <Snackbar open={Boolean(mutationError)} autoHideDuration={6000}>
+      {friendListError && (
+        <Snackbar open={Boolean(friendListError)} autoHideDuration={6000}>
           <Alert severity="error">
-            There was an error processing your request: {mutationError.message}
+            There was an error processing your request:{" "}
+            {friendListError.message}
           </Alert>
         </Snackbar>
       )}
