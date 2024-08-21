@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { useResetPassword } from "./useResetPassword";
 import { Button, Typography } from "@mui/material";
+import SociopediaHeader from "../components/SociopediaHeader";
 
 function ResetPasswordPage() {
   const { token } = useParams();
@@ -20,6 +21,7 @@ function ResetPasswordPage() {
 
   return (
     <>
+      <SociopediaHeader />
       <form onSubmit={handleSubmit}>
         <label htmlFor="password">Password</label>
         <input

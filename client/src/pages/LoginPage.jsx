@@ -8,6 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import FormLogin from "../components/FormLogin";
+import SociopediaHeader from "../components/SociopediaHeader";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -16,20 +17,10 @@ function LoginPage() {
 
   return (
     <Box>
-      <Box
-        width="100%"
-        height="auto"
-        backgroundColor={theme.palette.background.alt}
-        p="1rem 6%"
-        textAlign="center"
-      >
-        <Typography fontWeight="bold" fontSize="32px" color="primary">
-          Sociopedia
-        </Typography>
-      </Box>
+      <SociopediaHeader />
       <Box
         width={isNonMobileScreens ? "50%" : "90%"}
-        height='auto'
+        height="auto"
         p="2rem"
         m="2rem auto"
         borderRadius="1.5rem"
@@ -43,18 +34,18 @@ function LoginPage() {
           Welcome to Sociopedia, the Social Media for Sociopaths!
         </Typography>
         <FormLogin />
-      <Box mt="1rem" display='flex'>  
-        <Button
-          onClick={() => navigate("/signup")}
-          fullWidth
-          sx={{ mb: "1rem" }}
-        >
-          Not a member yet? Sign up.
-        </Button>
-        <Button onClick={() => navigate("/forgot-password")} fullWidth>
-          Forgot your password?
-        </Button>
-      </Box>
+        <Box mt="1rem" display="flex">
+          <Button
+            onClick={() => navigate("/signup")}
+            fullWidth
+            sx={{ mb: "1rem" }}
+          >
+            Not a member yet? Sign up.
+          </Button>
+          <Button onClick={() => navigate("/forgot-password")} fullWidth>
+            Forgot your password?
+          </Button>
+        </Box>
       </Box>
     </Box>
   );

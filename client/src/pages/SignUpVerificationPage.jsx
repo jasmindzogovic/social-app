@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 
 import { signUpVerification } from "../services/auth";
+import SociopediaHeader from "../components/SociopediaHeader";
 
 function SignUpVerificationPage() {
   const { activationString } = useParams();
@@ -13,23 +14,37 @@ function SignUpVerificationPage() {
   });
 
   if (isLoading) {
-    return <Typography variant="h3">Verifying your email...</Typography>;
+    return (
+      <>
+        <SociopediaHeader />
+        <Typography variant="h3" sx={{ textAlign: "center" }}>
+          Verifying your email...
+        </Typography>
+        ;
+      </>
+    );
   }
 
   if (error) {
     console.error("Verification error", error);
     return (
-      <Typography sx={{ color: "red" }} variant="h3">
-        Error occurred: {error.message}
-      </Typography>
+      <>
+        <SociopediaHeader />
+        <Typography sx={{ color: "red", textAlign: "center" }} variant="h3">
+          Error occurred: {error.message}
+        </Typography>
+      </>
     );
   }
 
   if (isSuccess) {
     return (
-      <Typography variant="h3">
-        Account has been verified. You may log in to your account now.
-      </Typography>
+      <>
+        <SociopediaHeader />
+        <Typography variant="h3" sx={{ textAlign: "center" }}>
+          Account has been verified. You may log in to your account now.
+        </Typography>
+      </>
     );
   }
 

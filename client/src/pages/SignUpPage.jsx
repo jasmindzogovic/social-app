@@ -12,6 +12,7 @@ import Dropzone from "react-dropzone";
 import { useNavigate } from "react-router-dom";
 
 import { useSignUp } from "./useSignUp";
+import SociopediaHeader from "../components/SociopediaHeader";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -40,17 +41,7 @@ function SignUpPage() {
 
   return (
     <>
-      <Box
-        width="100%"
-        height="auto"
-        backgroundColor={theme.palette.background.alt}
-        p="1rem 6%"
-        textAlign="center"
-      >
-        <Typography fontWeight="bold" fontSize="32px" color="primary">
-          Sociopedia
-        </Typography>
-      </Box>
+      <SociopediaHeader />
       <Box>
         <Formik
           initialValues={{

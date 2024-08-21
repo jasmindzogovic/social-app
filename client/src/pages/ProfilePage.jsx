@@ -4,6 +4,7 @@ import { Alert, Button, Snackbar, Typography } from "@mui/material";
 
 import { getUser } from "../services/users";
 import { useAddRemoveFriends } from "./useAddRemoveFriends";
+import NavBar from "../components/NavBar";
 
 function ProfilePage() {
   const { userId } = useParams();
@@ -31,6 +32,7 @@ function ProfilePage() {
 
   return (
     <>
+      <NavBar />
       <Typography variant="h3">{data.data.user.firstName}</Typography>
       <div>
         {data.data.user.friends
