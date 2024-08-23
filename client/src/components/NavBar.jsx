@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import {
   Box,
@@ -28,7 +27,6 @@ import { useLogOut } from "../pages/useLogOut";
 
 function NavBar({ data }) {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
-  const navigate = useNavigate();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const { mutate, isLoading, error } = useLogOut();
 
@@ -36,7 +34,6 @@ function NavBar({ data }) {
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
   const background = theme.palette.background.default;
-  const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
   const fullName = `${data.data.user.firstName} ${data.data.user.lastName}`;

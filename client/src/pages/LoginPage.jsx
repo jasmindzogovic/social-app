@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Box,
@@ -5,7 +6,6 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 import FormLogin from "../components/FormLogin";
 import SociopediaHeader from "../components/SociopediaHeader";

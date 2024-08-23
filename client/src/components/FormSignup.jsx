@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import Dropzone from "react-dropzone";
 import {
   Box,
   Button,
@@ -9,8 +11,6 @@ import {
 import { EditOutlined } from "@mui/icons-material";
 import * as yup from "yup";
 import { Formik } from "formik";
-import Dropzone from "react-dropzone";
-import { useNavigate } from "react-router-dom";
 
 import { useSignUp } from "../pages/useSignUp";
 

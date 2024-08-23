@@ -3,8 +3,9 @@ import { Button, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
-import { signUpVerification } from "../services/auth";
 import SociopediaHeader from "../components/SociopediaHeader";
+
+import { signUpVerification } from "../services/auth";
 
 function SignUpVerificationPage() {
   const navigate = useNavigate();

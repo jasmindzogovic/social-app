@@ -2,7 +2,7 @@ import axios from "axios";
 
 export async function getAllPosts() {
   try {
-    const res = await axios.get("127.0.0.1:8000/api/v1/posts", {
+    const res = await axios.get("http://127.0.0.1:8000/api/v1/posts", {
       withCredentials: true,
     });
 
@@ -19,7 +19,7 @@ export async function getAllPosts() {
 export async function createNewPost(description) {
   try {
     const res = await axios.post(
-      "127.0.0.1:8000/api/v1/posts",
+      "http://127.0.0.1:8000/api/v1/posts",
       {
         withCredentials: true,
       },
@@ -38,9 +38,12 @@ export async function createNewPost(description) {
 
 export async function likePost(userId) {
   try {
-    const res = await axios.patch(`127.0.0.1:8000/api/v1/posts/${userId}`, {
-      withCredentials: true,
-    });
+    const res = await axios.patch(
+      `http://127.0.0.1:8000/api/v1/posts/${userId}`,
+      {
+        withCredentials: true,
+      }
+    );
 
     return res.data;
   } catch (error) {
@@ -54,9 +57,12 @@ export async function likePost(userId) {
 
 export async function getUserPosts() {
   try {
-    const res = await axios.get("127.0.0.1:8000/api/v1/posts/user-posts", {
-      withCredentials: true,
-    });
+    const res = await axios.get(
+      "http://127.0.0.1:8000/api/v1/posts/user-posts",
+      {
+        withCredentials: true,
+      }
+    );
 
     return res.data;
   } catch (error) {

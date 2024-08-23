@@ -1,7 +1,8 @@
-import { useResetPassword } from "../pages/useResetPassword";
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { Formik, Field, Form } from "formik";
 import * as yup from "yup";
+
+import { useResetPassword } from "../pages/useResetPassword";
 
 const resetPasswordSchema = yup.object().shape({
   password: yup.string().required("required"),

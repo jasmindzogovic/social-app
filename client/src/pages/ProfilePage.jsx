@@ -2,11 +2,13 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useMediaQuery, Box } from "@mui/material";
 
-import { getUser } from "../services/users";
-import { useAddRemoveFriends } from "./useAddRemoveFriends";
 import NavBar from "../components/NavBar";
 import UserWidget from "../components/UserWidget";
 import SociopediaHeader from "../components/SociopediaHeader";
+
+import { getUser } from "../services/users";
+import { useAddRemoveFriends } from "./useAddRemoveFriends";
+import { getAllPosts } from "../services/posts";
 
 function ProfilePage() {
   const { userId } = useParams();
@@ -20,6 +22,15 @@ function ProfilePage() {
   const { data, isLoading, error } = useQuery({
     queryFn: () => getUser(userId),
     queryKey: ["user", userId],
+  });
+
+  const {
+    data: postData,
+    isLoading: postLoadingStatus,
+    error: postError,
+  } = useQuery({
+    queryFn: () => getAllPosts(),
+    queryKey: ["post"],
   });
 
   if (isLoading)
