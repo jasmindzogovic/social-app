@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -7,7 +6,6 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 
@@ -19,7 +17,6 @@ const loginSchema = yup.object().shape({
 });
 
 function FormLogin() {
-  const navigate = useNavigate();
   const { mutate, isLoading, error } = useLogin();
 
   const palette = useTheme();
@@ -69,7 +66,11 @@ function FormLogin() {
               sx={{ height: "auto" }}
             />
           </Box>
-          <Button type="submit" disabled={isLoading} sx={{mt: '1rem', p: '.5rem'}}>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            sx={{ mt: "1rem", p: ".5rem" }}
+          >
             {isLoading ? "Logging In" : " Log In"}
           </Button>
           {error && (

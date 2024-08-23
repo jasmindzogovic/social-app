@@ -222,7 +222,7 @@ function FormSignup() {
             <Box
               sx={{
                 display: "flex",
-                justifyContent: "center",
+                justifyContent: "space-between",
                 height: "auto",
               }}
             >

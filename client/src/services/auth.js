@@ -123,7 +123,7 @@ export async function forgotPassword(email) {
   }
 }
 
-export async function resetPassword(password, passwordConfirm, token) {
+export async function resetPassword(password, passwordConfirm, { token }) {
   try {
     const res = await axios.patch(
       `http://127.0.0.1:8000/api/v1/users/resetPassword/${token}`,

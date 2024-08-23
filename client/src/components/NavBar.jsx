@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -16,7 +15,6 @@ import {
 } from "@mui/material";
 
 import {
-  Search,
   Message,
   DarkMode,
   LightMode,
@@ -27,7 +25,6 @@ import {
 } from "@mui/icons-material";
 
 import { useLogOut } from "../pages/useLogOut";
-import FlexBetween from "./FlexBetween";
 
 function NavBar({ data }) {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -48,38 +45,51 @@ function NavBar({ data }) {
     mutate();
   }
 
+  function handleFocus(e) {
+    e.target.placeholder = "";
+  }
+
+  function handleBlur(e) {
+    e.target.placeholder = "Search...";
+  }
+
   return (
-    <FlexBetween
+    <Box
       padding="0.5rem 1.5rem"
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
       backgroundColor={alt}
       sx={{ height: "60px" }}
     >
-      <FlexBetween gap="1.75rem">
+      <Box gap="1.75rem" display="flex" alignItems="center">
         <Typography
           fontWeight="bold"
           fontSize="clamp(1rem, 2rem, 2.25rem)"
           color="primary"
-          sx={{ "&:hover": { color: primaryLight, cursor: "pointer" } }}
         >
           Sociopedia
         </Typography>
         {isNonMobileScreens && (
-          <FlexBetween
+          <Box
+            display="flex"
+            alignItems="center"
             backgroundColor={neutralLight}
             borderRadius="9px"
             gap="3rem"
             padding="0.1rem 1.5rem"
           >
-            <InputBase placeholder="Search..." />
-            <IconButton>
-              <Search />
-            </IconButton>
-          </FlexBetween>
+            <InputBase
+              placeholder="Search..."
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+            />
+          </Box>
         )}
-      </FlexBetween>
+      </Box>
 
       {isNonMobileScreens ? (
-        <FlexBetween gap="2rem" marginLeft="10rem">
+        <Box display="flex" alignItems="center" gap="2rem" marginLeft="10rem">
           <IconButton sx={{ flexShrink: 1, width: "45px" }}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
@@ -109,7 +119,7 @@ function NavBar({ data }) {
               <MenuItem>Log Out</MenuItem>
             </Select>
           </FormControl>
-        </FlexBetween>
+        </Box>
       ) : (
         <IconButton
           onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
@@ -136,7 +146,7 @@ function NavBar({ data }) {
               <Close />
             </IconButton>
           </Box>
-          <FlexBetween
+          <Box
             display="flex"
             flexDirection="column"
             justifyContent="center"
@@ -174,7 +184,7 @@ function NavBar({ data }) {
                 <MenuItem>Log Out</MenuItem>
               </Select>
             </FormControl>
-          </FlexBetween>
+          </Box>
         </Box>
       )}
       <Button onClick={handleLogOut} sx={{ width: "10rem" }}>
@@ -185,7 +195,7 @@ function NavBar({ data }) {
           </Typography>
         )}
       </Button>
-    </FlexBetween>
+    </Box>
   );
 }
 export default NavBar;

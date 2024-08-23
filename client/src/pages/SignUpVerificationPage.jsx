@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 import { signUpVerification } from "../services/auth";
 import SociopediaHeader from "../components/SociopediaHeader";
 
 function SignUpVerificationPage() {
+  const navigate = useNavigate();
   const { activationString } = useParams();
 
   const { isLoading, error, isSuccess } = useQuery({
@@ -29,6 +31,9 @@ function SignUpVerificationPage() {
       {isSuccess && (
         <Typography variant="h3" sx={{ textAlign: "center" }}>
           Account has been verified. You may log in to your account now.
+          <Button type="submit" onClick={() => navigate("/")}>
+            Take me to login page.
+          </Button>
         </Typography>
       )}
     </>

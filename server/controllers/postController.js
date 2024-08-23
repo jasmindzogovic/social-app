@@ -22,7 +22,7 @@ exports.getUserPosts = async (req, res) => {
 
     if (posts.length === 0)
       throw new Error(
-        "No posts yet. Post something so that you can view posts."
+        "No posts yet by this user. Post something so that you can view posts."
       );
 
     res.status(200).json({ status: "success", data: { posts } });
