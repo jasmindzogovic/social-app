@@ -79,14 +79,14 @@ function FormSignup() {
         }) => (
           <form onSubmit={handleSubmit}>
             <Box
-              backgroundColor={theme.palette.background.default}
-              p="2rem"
-              display="grid"
-              gap="20px"
-              gridTemplateColumns="repeat(2, 1fr)"
-              gridTemplateRows="repeat(4,auto)"
               sx={{
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                backgroundColor: `${theme.palette.background.default}`,
+                p: "2rem",
+                display: "grid",
+                gap: "20px",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gridTemplateRows: "repeat(4,auto)",
               }}
             >
               <TextField
@@ -179,12 +179,14 @@ function FormSignup() {
                 sx={{ width: "100%", height: "auto" }}
               />
               <Box
-                gridColumn="span 2"
-                border={`1px solid ${theme.palette.neutral.medium}`}
-                borderRadius="5px"
-                p="1rem"
-                maxWidth="400px"
-                mx="auto"
+                sx={{
+                  gridColumn: "span 2",
+                  border: `1px solid ${theme.palette.neutral.medium}`,
+                  borderRadius: "5px",
+                  p: "1rem",
+                  maxWidth: "400px",
+                  mx: "auto",
+                }}
               >
                 <Dropzone
                   acceptedFiles=".jpg,.jpeg,.png"
@@ -196,9 +198,11 @@ function FormSignup() {
                   {({ getRootProps, getInputProps }) => (
                     <Box
                       {...getRootProps()}
-                      border={`2px dashed ${theme.palette.primary.main}`}
-                      p=".5rem"
-                      sx={{ "&:hover": { cursor: "pointer" } }}
+                      sx={{
+                        "&:hover": { cursor: "pointer" },
+                        border: `2px dashed ${theme.palette.primary.main}`,
+                        p: ".5rem",
+                      }}
                     >
                       <input {...getInputProps()} />
                       <Typography>

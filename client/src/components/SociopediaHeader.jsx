@@ -7,11 +7,12 @@ function SociopediaHeader() {
 
   return (
     <Box
-      width="100%"
-      height="auto"
-      backgroundColor={theme.palette.background.alt}
-      p="1rem 6%"
-      textAlign="center"
+    sx={{width:"100%",
+      height:"auto",
+      backgroundColor:`${theme.palette.background.alt}`,
+      p:"1rem 6%",
+      textAlign:"center"}}
+      
     >
       <Button
         type="submit"

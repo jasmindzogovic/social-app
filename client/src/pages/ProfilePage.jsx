@@ -1,6 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useMediaQuery, Box, Typography } from "@mui/material";
+import {
+  useMediaQuery,
+  Box,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 
 import NavBar from "../components/NavBar";
 import UserWidget from "../components/UserWidget";
@@ -38,16 +43,7 @@ function ProfilePage() {
     return (
       <>
         <SociopediaHeader />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          Loading...
-        </div>
-        ;
+        <CircularProgress />
       </>
     );
 
@@ -66,13 +62,15 @@ function ProfilePage() {
     <>
       <NavBar data={data} />
       <Box
-        width="100%"
-        padding="2rem 6%"
-        display={isNonMobileScreens ? "flex" : "block"}
-        gap=".5rem"
-        justifyContent="space-between"
+        sx={{
+          width: "100%",
+          p: "2rem 6%",
+          display: `${isNonMobileScreens ? "flex" : "block"}`,
+          gap: ".5rem",
+          justifyContent: "space-between",
+        }}
       >
-        <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
+        <Box sx={{ flexBasis: `${isNonMobileScreens ? "26%" : undefined}` }}>
           {isLoading ? (
             <Typography variant="h3">Loading...</Typography>
           ) : (
@@ -87,12 +85,14 @@ function ProfilePage() {
           )}
         </Box>
         <Box
-          flexBasis={isNonMobileScreens ? "42%" : undefined}
-          mt={isNonMobileScreens ? undefined : "2rem"}
+          sx={{
+            flexBasis: `${isNonMobileScreens ? "42%" : undefined}`,
+            mt: `${isNonMobileScreens ? undefined : "2rem"}`,
+          }}
         >
-          <PostWidget image={image}/>
+          <PostWidget image={image} />
         </Box>
-        {isNonMobileScreens && <Box flexBasis="26%"></Box>}
+        {isNonMobileScreens && <Box sx={{ flexBasis: "26%" }}></Box>}
       </Box>
     </>
   );

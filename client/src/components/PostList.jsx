@@ -3,6 +3,7 @@ import { CircularProgress, Typography, useTheme, Box } from "@mui/material";
 import { ThumbUp } from "@mui/icons-material";
 
 import { getAllPosts } from "../services/posts";
+import UserImage from "./UserImage";
 
 function PostList() {
   const { palette } = useTheme();
@@ -21,7 +22,7 @@ function PostList() {
   return (
     <Box>
       {posts.length > 0 ? (
-        posts.map((post) => (
+        posts.map(({ _id, description, likes, comments, createdAt, user }) => (
           <Box
             sx={{
               display: "flex",
@@ -32,18 +33,38 @@ function PostList() {
               borderRadius: "5px",
               backgroundColor: palette.background.alt,
             }}
-            key={post._id}
+            key={_id}
           >
             <Box sx={{ height: "auto", width: "auto", fontSize: "1.5rem" }}>
-              {post.description}
+              {description}
             </Box>
-            <Box sx={{ display: "flex", justifyContent: "start" }}>
-              <Typography mr=".5rem">{post.likes}</Typography>
-              <ThumbUp />
+            <Box sx={{ display: "flex", alignItems: "center", mb: "1rem" }}>
+              <Typography mr=".5rem" width="auto">
+                {likes}
+              </Typography>
+              <ThumbUp sx={{ cursor: "pointer" }} />
+            </Box>
+            <Box>{createdAt}</Box>
+            <Box sx={{ display: "flex" }}>
+              <UserImage image={user.image} />
+              <Box sx={{ mb: "1rem" }}>
+                {user.firstName} {user.lastName}
+              </Box>
             </Box>
             <Box>
-              {post.comments.map((comment) => (
-                <Box key={comment._id}>{comment.comment}</Box>
+              {comments.map((comment) => (
+                <Box
+                  key={comment._id}
+                  sx={{
+                    backgroundColor: palette.primary.light,
+                    mb: ".5rem",
+                    padding: ".5rem",
+                    borderRadius: "5px",
+                    border: `2px solid ${palette.primary.dark}`,
+                  }}
+                >
+                  {comment.comment}
+                </Box>
               ))}
             </Box>
           </Box>

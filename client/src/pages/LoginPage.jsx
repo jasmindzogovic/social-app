@@ -19,22 +19,23 @@ function LoginPage() {
     <Box>
       <SociopediaHeader />
       <Box
-        width={isNonMobileScreens ? "50%" : "90%"}
-        height="auto"
-        p="2rem"
-        m="2rem auto"
-        borderRadius="1.5rem"
-        backgroundColor={theme.palette.background.alt}
+        sx={{
+          width: `${isNonMobileScreens ? "50%" : "90%"}`,
+          height: "auto",
+          p: "2rem",
+          m: "2rem auto",
+          borderRadius: "1.5rem",
+          backgroundColor: `${theme.palette.background.alt}`,
+        }}
       >
         <Typography
-          fontWeight="500"
           variant="h5"
-          sx={{ mb: "1.5rem", height: "auto" }}
+          sx={{ mb: "1.5rem", height: "auto", fontWeight: "500" }}
         >
           Welcome to Sociopedia, the Social Media for Sociopaths!
         </Typography>
         <FormLogin />
-        <Box mt="1rem" display="flex">
+        <Box sx={{ mt: "1rem", display: "flex" }}>
           <Button
             onClick={() => navigate("/signup")}
             fullWidth

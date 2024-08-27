@@ -19,8 +19,6 @@ const postSchema = yup
 function FormPost({ image }) {
   const { mutate, isLoading, error } = useCreatePost();
   const { palette } = useTheme();
-  const mediumMain = palette.neutral.mediumMain;
-  const medium = palette.neutral.medium;
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     mutate(values, {

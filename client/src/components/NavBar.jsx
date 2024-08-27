@@ -52,29 +52,35 @@ function NavBar({ data }) {
 
   return (
     <Box
-      padding="0.5rem 1.5rem"
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      backgroundColor={alt}
-      sx={{ height: "60px" }}
+      sx={{
+        height: "60px",
+        padding: "0.5rem 1.5rem",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: `${alt}`,
+      }}
     >
-      <Box gap="1.75rem" display="flex" alignItems="center">
+      <Box sx={{ gap: "1.75rem", display: "flex", alignItems: "center" }}>
         <Typography
-          fontWeight="bold"
-          fontSize="clamp(1rem, 2rem, 2.25rem)"
-          color="primary"
+          sx={{
+            fontWeight: "bold",
+            fontSize: "clamp(1rem, 2rem, 2.25rem)",
+            color: "primary",
+          }}
         >
           Sociopedia
         </Typography>
         {isNonMobileScreens && (
           <Box
-            display="flex"
-            alignItems="center"
-            backgroundColor={neutralLight}
-            borderRadius="9px"
-            gap="3rem"
-            padding="0.1rem 1.5rem"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: { neutralLight },
+              borderRadius: "9px",
+              gap: "3rem",
+              padding: "0.1rem 1.5rem",
+            }}
           >
             <InputBase
               placeholder="Search..."
@@ -86,7 +92,14 @@ function NavBar({ data }) {
       </Box>
 
       {isNonMobileScreens ? (
-        <Box display="flex" alignItems="center" gap="2rem" marginLeft="10rem">
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: "2rem",
+            marginLeft: "10rem",
+          }}
+        >
           <IconButton sx={{ flexShrink: 1, width: "45px" }}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
@@ -108,16 +121,18 @@ function NavBar({ data }) {
 
       {!isNonMobileScreens && isMobileMenuToggled && (
         <Box
-          position="fixed"
-          right="0"
-          bottom="0"
-          height="100%"
-          zIndex="10"
-          maxWidth="500px"
-          minWidth="300px"
-          backgroundColor={background}
+          sx={{
+            position: "fixed",
+            right: "0",
+            bottom: "0",
+            height: "100%",
+            zIndex: "10",
+            maxWidth: "500px",
+            minWidth: "300px",
+            backgroundColor: { background },
+          }}
         >
-          <Box display="flex" justifyContent="flex-end" p="1rem">
+          <Box sx={{ display: "flex", justifyContent: "flex-end", p: "1rem" }}>
             <IconButton
               onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
             >
@@ -125,11 +140,12 @@ function NavBar({ data }) {
             </IconButton>
           </Box>
           <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            gap="1rem"
+          sx={{display:"flex",
+            flexDirection:"column",
+            justifyContent:"center",
+            alignItems:"center",
+            gap:"1rem"}}
+            
           >
             <IconButton sx={{ fontSize: "25px" }}>
               {theme.palette.mode === "dark" ? (

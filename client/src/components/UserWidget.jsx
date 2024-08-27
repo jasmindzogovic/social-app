@@ -24,27 +24,37 @@ function UserWidget({
 
   return (
     <Box
-      height="auto"
-      display="flex"
-      p="1.5rem 1.5rem 0.75rem 1.5rem"
-      width="20rem"
-      sx={{ backgroundColor: palette.background.alt, borderRadius: "0.75rem" }}
+      sx={{
+        backgroundColor: palette.background.alt,
+        borderRadius: "0.75rem",
+        height: "auto",
+        display: "flex",
+        p: "1.5rem 1.5rem 0.75rem 1.5rem",
+        width: "20rem",
+      }}
     >
-      <Box display="flex" flexDirection="column" gap="0.5rem" pb="1.1rem">
-        <Box display="flex" gap="1rem">
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.5rem",
+          pb: "1.1rem",
+        }}
+      >
+        <Box sx={{ display: "flex", gap: "1rem" }}>
           <UserImage image={image} />
           <Box>
             <Typography
               variant="h4"
-              color={dark}
-              fontWeight="500"
               sx={{
                 "&:hover": { color: palette.primary.light, cursor: "pointer" },
+                fontWeight: "500",
+                color: `${dark}`,
               }}
             >
               {firstName} {lastName}
             </Typography>
-            <Typography color={medium} fontWeight="bold">
+            <Typography sx={{ color: `${medium}`, fontWeight: "bold" }}>
               Friends: {friends ? friends.length : ""}
             </Typography>
           </Box>
@@ -53,30 +63,36 @@ function UserWidget({
         <Divider />
 
         <Box
-          display="flex"
-          flexDirection='column'
-          p="1rem 0"
-          gap="1rem"
-          alignItems="center"
-          mb=".5rem"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            p: "1rem 0",
+            gap: "1rem",
+            alignItems: "center",
+            mb: ".5rem",
+          }}
         >
           <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            gap="1rem"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "1rem",
+            }}
           >
-            <LocationOnOutlined fontSize="large" sx={{ color: main }} />
-            <Typography color={medium}>{location}</Typography>
+            <LocationOnOutlined sx={{ color: main, fontSize: "large" }} />
+            <Typography sx={{ color: `${medium}` }}>{location}</Typography>
           </Box>
           <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            gap="1rem"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "1rem",
+            }}
           >
-            <WorkOutlineRounded fontSize="large" sx={{ color: main }} />
-            <Typography color={medium}>{occupation}</Typography>
+            <WorkOutlineRounded sx={{ color: main, fontSize: "large" }} />
+            <Typography sx={{ color: `${medium}` }}>{occupation}</Typography>
           </Box>
         </Box>
       </Box>
