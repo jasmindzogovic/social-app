@@ -54,6 +54,7 @@ function UserWidget({
 
         <Box
           display="flex"
+          flexDirection='column'
           p="1rem 0"
           gap="1rem"
           alignItems="center"

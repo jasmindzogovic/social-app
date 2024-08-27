@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { signUp } from "../services/auth";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function useSignUp() {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ export function useSignUp() {
         location,
         occupation
       ),
+    onSuccess: () => toast.success("Sign up was succesful."),
     onError: (error) => {
       console.error(
         "Error occurred during sign up:",

@@ -19,9 +19,9 @@ exports.getPostComments = async (req, res) => {
 
 exports.createPostComment = async (req, res) => {
   try {
+    const { postId } = req.params;
     const { commentBody } = req.body;
     const userId = req.user._id;
-    const { postId } = req.params;
 
     if (!commentBody) throw new Error("Please leave a comment.");
 
@@ -29,6 +29,7 @@ exports.createPostComment = async (req, res) => {
       user: userId,
       comment: commentBody,
     });
+    
     const post = await Post.findOneAndUpdate(
       { _id: postId },
       {

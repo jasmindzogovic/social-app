@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useMediaQuery, Box } from "@mui/material";
+import { useMediaQuery, Box, Typography } from "@mui/material";
 
 import NavBar from "../components/NavBar";
 import UserWidget from "../components/UserWidget";
 import SociopediaHeader from "../components/SociopediaHeader";
+import PostWidget from "../components/PostWidget";
 
 import { getUser } from "../services/users";
 import { useAddRemoveFriends } from "./useAddRemoveFriends";
@@ -72,15 +73,26 @@ function ProfilePage() {
         justifyContent="space-between"
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <UserWidget
-            firstName={firstName}
-            lastName={lastName}
-            image={image}
-            location={location}
-            occupation={occupation}
-            friends={friends}
-          />
+          {isLoading ? (
+            <Typography variant="h3">Loading...</Typography>
+          ) : (
+            <UserWidget
+              firstName={firstName}
+              lastName={lastName}
+              image={image}
+              location={location}
+              occupation={occupation}
+              friends={friends}
+            />
+          )}
         </Box>
+        <Box
+          flexBasis={isNonMobileScreens ? "42%" : undefined}
+          mt={isNonMobileScreens ? undefined : "2rem"}
+        >
+          <PostWidget image={image}/>
+        </Box>
+        {isNonMobileScreens && <Box flexBasis="26%"></Box>}
       </Box>
     </>
   );

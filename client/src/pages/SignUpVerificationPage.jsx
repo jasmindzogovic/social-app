@@ -33,7 +33,7 @@ function SignUpVerificationPage() {
         <Typography variant="h3" sx={{ textAlign: "center" }}>
           Account has been verified. You may log in to your account now.
           <Button type="submit" onClick={() => navigate("/")}>
-            Take me to login page.
+            Take me to login page. &rarr;
           </Button>
         </Typography>
       )}

@@ -1,11 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
 
 import { addOrRemoveFriends } from "../services/users";
+import toast from "react-hot-toast";
 
 export function useAddRemoveFriends() {
   const { isLoading, mutate, error } = useMutation({
     mutationFn: ({ operation, friendID, userId }) =>
       addOrRemoveFriends(operation, friendID, userId),
+    onSuccess: () =>
+      toast.success(
+        `User has been ${operation === "add" ? "added" : "removed"} from friends list.`
+      ),
     onError: (error) => {
       console.error(
         "Error occurred while adding or removing from friends list:",

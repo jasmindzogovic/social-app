@@ -71,7 +71,7 @@ function FormLogin() {
             disabled={isLoading}
             sx={{ mt: "1rem", p: ".5rem" }}
           >
-            {isLoading ? "Logging In" : " Log In"}
+            {isLoading ? "Logging In" : "Log In"}
           </Button>
           {error && (
             <Typography style={{ color: "red" }}>

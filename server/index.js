@@ -19,14 +19,14 @@ const app = express();
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // Implement rate limiting for API from same IP
-app.use(
-  "/",
-  rateLimit({
-    max: 100,
-    windowMs: 60 * 60 * 1000,
-    message: "Too many requests from this IP, please try again in an hour.",
-  })
-);
+// app.use(
+//   "/",
+//   rateLimit({
+//     max: 100,
+//     windowMs: 60 * 60 * 1000,
+//     message: "Too many requests from this IP, please try again in an hour.",
+//   })
+// );
 
 // SET SECURITY HTTP HEADERS WITH HELMET
 app.use(helmet());
