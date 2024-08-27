@@ -1,14 +1,10 @@
-import Dropzone from "react-dropzone";
 import {
   Box,
   Divider,
   Typography,
-  InputBase,
   useTheme,
   TextField,
   Button,
-  IconButton,
-  useMediaQuery,
 } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
@@ -47,6 +43,7 @@ function FormPost({ image }) {
       borderRadius="5px"
     >
       <UserImage image={image} />
+      <Divider />
       <Formik
         initialValues={{ description: "" }}
         validationSchema={postSchema}
@@ -67,7 +64,7 @@ function FormPost({ image }) {
                   Boolean(touched.description) && Boolean(errors.description)
                 }
                 helperText={touched.description && errors.description}
-                sx={{ height: "auto", borderRadius: "10px" }}
+                sx={{ height: "auto", borderRadius: "10px", mt: "1rem" }}
               />
             </Box>
             <Button

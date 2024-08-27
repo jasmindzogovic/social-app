@@ -22,7 +22,11 @@ function App() {
 
   return (
     <div className="app">
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{ style: { height: "5rem" } }}
+      />
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <ThemeProvider theme={theme}>
