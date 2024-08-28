@@ -32,6 +32,7 @@ function Users({ userId, friends }) {
   if (userIsLoading) return <CircularProgress />;
 
   const { users } = data ? data.data : [];
+  const filteredUsers = users.filter((user) => user._id !== userId);
 
   return (
     <Box
@@ -43,7 +44,7 @@ function Users({ userId, friends }) {
         borderRadius: "5px",
       }}
     >
-      {users.map((user) => {
+      {filteredUsers.map((user) => {
         const isFriend =
           friends && friends.find((friend) => friend._id === user._id);
 
