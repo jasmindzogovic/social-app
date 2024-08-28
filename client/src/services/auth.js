@@ -29,14 +29,15 @@ export async function signUp(
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Sign up error",
-      error.response ? error.response.data : error.message
-    );
+    console.error("Sign up error:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
     throw new Error(
-      error.response
-        ? error.response.data.message
-        : "An error occurred during sign up."
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred during sign up."
     );
   }
 }
@@ -49,14 +50,15 @@ export async function signUpVerification(param) {
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Sign up verification error",
-      error.response ? error.response.data : error.message
-    );
+    console.error("Sign up verification error:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
     throw new Error(
-      error.response
-        ? error.response.data.message
-        : "An error occurred during sign up verification."
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred during sign up verification."
     );
   }
 }
@@ -74,14 +76,15 @@ export async function logIn(email, password) {
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Log in error",
-      error.response ? error.response.data : error.message
-    );
+    console.error("Log in error:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
     throw new Error(
-      error.response
-        ? error.response.data.message
-        : "An error occurred during log in."
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred during log in."
     );
   }
 }
@@ -94,14 +97,15 @@ export async function logOut() {
 
     return res;
   } catch (error) {
-    console.error(
-      "Log out error",
-      error.response ? error.response.data : error.message
-    );
+    console.error("Log out error:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
     throw new Error(
-      error.response
-        ? error.response.data.message
-        : "An error occurred during log out."
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred during log out."
     );
   }
 }
@@ -115,11 +119,16 @@ export async function forgotPassword(email) {
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Error sending password reset email:",
-      error.response ? error.response.data : error.message
+    console.error("Error sending password reset email:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred while sending password reset email."
     );
-    throw new Error(error.response ? error.response.data : error.message);
   }
 }
 
@@ -132,10 +141,15 @@ export async function resetPassword(password, passwordConfirm, { token }) {
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Error resetting password:",
-      error.response ? error.response.data : error.message
+    console.error("Error resetting password:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred while resetting password."
     );
-    throw new Error(error.response ? error.response.data : error.message);
   }
 }

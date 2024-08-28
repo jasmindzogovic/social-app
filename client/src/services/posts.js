@@ -12,11 +12,16 @@ export async function getAllPosts() {
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Error fetching posts:",
-      error.response ? error.response.data : error.message
+    console.error("Error fetching the posts:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred while fetching the posts."
     );
-    throw new Error(error.response ? error.response.data : error.message);
   }
 }
 
@@ -32,11 +37,16 @@ export async function createNewPost(description) {
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Error creating a new post:",
-      error.response ? error.response.data : error.message
+    console.error("Error creating a new post:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred while creating a new post."
     );
-    throw new Error(error.response ? error.response.data : error.message);
   }
 }
 
@@ -76,10 +86,15 @@ export async function getUserPosts() {
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Error fetching this users posts:",
-      error.response ? error.response.data : error.message
+    console.error("Error fetching this users posts:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred while fetching this users posts."
     );
-    throw new Error(error.response ? error.response.data : error.message);
   }
 }

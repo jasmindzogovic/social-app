@@ -9,11 +9,16 @@ export async function getAllUsers() {
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Error fetching user:",
-      error.response ? error.response.data : error.message
+    console.error("Error fetching users:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred while fetching users."
     );
-    throw new Error(error.response ? error.response.data : error.message);
   }
 }
 
@@ -26,11 +31,16 @@ export async function getUser(userId) {
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Error fetching user:",
-      error.response ? error.response.data : error.message
+    console.error("Error fetching user:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred while fetching user."
     );
-    throw new Error(error.response ? error.response.data : error.message);
   }
 }
 
@@ -48,8 +58,18 @@ export async function addOrRemoveFriends(operation, friendID, userId) {
       `Error ${
         operation === "add" ? "adding" : "removing"
       } user from friends list:`,
-      error.response ? error.response.data : error.message
+      {
+        message: error.message,
+        response: error.response ? error.response.data : null,
+        status: error.response ? error.response.status : null,
+      }
     );
-    throw new Error(error.response ? error.response.data : error.message);
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        `An error occurred while ${
+          operation === "add" ? "adding" : "removing"
+        } user from friends list.`
+    );
   }
 }

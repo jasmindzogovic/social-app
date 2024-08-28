@@ -9,11 +9,16 @@ export async function getPostComments(postId) {
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Error getting post comments:",
-      error.response ? error.response.data : error.message
+    console.error("Error getting this posts comments:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred while getting this posts comments."
     );
-    throw new Error(error.response ? error.response.data : error.message);
   }
 }
 
@@ -26,10 +31,15 @@ export async function createPostComment(commentBody, userId, postId) {
 
     return res.data;
   } catch (error) {
-    console.error(
-      "Error creating post comment:",
-      error.response ? error.response.data : error.message
+    console.error("Error creating post comment:", {
+      message: error.message,
+      response: error.response ? error.response.data : null,
+      status: error.response ? error.response.status : null,
+    });
+    throw new Error(
+      error.response?.data?.message ||
+        error.message ||
+        "An error occurred while creating post comment."
     );
-    throw new Error(error.response ? error.response.data : error.message);
   }
 }
