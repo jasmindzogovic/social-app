@@ -30,7 +30,7 @@ function PostWidget({ image }) {
   return (
     <>
       <FormPost image={image} />
-      <PostList />
+      <PostList userId={userId} />
     </>
   );
 }

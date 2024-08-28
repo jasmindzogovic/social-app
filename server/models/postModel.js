@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const { ObjectId } = mongoose.Schema.Types;
 
 const postSchema = new mongoose.Schema({
@@ -16,6 +15,7 @@ const postSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  likedBy: [{type: ObjectId, ref: 'User'}],
   comments: [{ type: ObjectId, ref: "Comment" }],
   createdAt: {
     type: Date,

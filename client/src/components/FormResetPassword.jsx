@@ -14,7 +14,7 @@ const resetPasswordSchema = yup.object().shape({
 });
 
 function FormResetPassword({ token }) {
-  const { isLoading, mutate, isSuccess, error } = useResetPassword();
+  const { isLoading, mutate } = useResetPassword();
 
   function handleSubmit(values, { setSubmitting, resetForm }) {
     mutate(values, {

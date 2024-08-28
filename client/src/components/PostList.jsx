@@ -2,16 +2,23 @@ import { useQuery } from "@tanstack/react-query";
 import { CircularProgress, Typography, useTheme, Box } from "@mui/material";
 import { ThumbUp } from "@mui/icons-material";
 
-import { getAllPosts } from "../services/posts";
 import UserImage from "./UserImage";
 
-function PostList() {
+import { getAllPosts } from "../services/posts";
+import { useLikePost } from "../pages/useLikePost";
+
+function PostList({ userId }) {
   const { palette } = useTheme();
+  const { mutate } = useLikePost();
 
   const { data, isLoading, error } = useQuery({
     queryFn: getAllPosts,
     queryKey: ["post"],
   });
+
+  function handleLike(postId) {
+    mutate({ postId });
+  }
 
   if (isLoading)
     return <CircularProgress style={{ display: "block", margin: "auto" }} />;
@@ -32,14 +39,17 @@ function PostList() {
               p: "1rem",
               borderRadius: "5px",
               backgroundColor: palette.background.alt,
-              boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
+              boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
             }}
             key={_id}
           >
             <Box sx={{ height: "auto", width: "auto", fontSize: "1.5rem" }}>
               {description}
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center", mb: "1rem" }}>
+            <Box
+              sx={{ display: "flex", alignItems: "center", mb: "1rem" }}
+              onClick={() => handleLike(_id)}
+            >
               <Typography mr=".5rem" width="auto">
                 {likes}
               </Typography>

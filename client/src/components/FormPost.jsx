@@ -18,7 +18,7 @@ const postSchema = yup
   .shape({ description: yup.string().required("required") });
 
 function FormPost({ image }) {
-  const { mutate, isLoading, error } = useCreatePost();
+  const { mutate, isLoading } = useCreatePost();
   const { palette } = useTheme();
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {

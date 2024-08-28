@@ -6,7 +6,7 @@ import { createNewPost } from "../services/posts";
 
 export function useCreatePost() {
   const queryClient = useQueryClient();
-  const { isLoading, mutate, error } = useMutation({
+  const { isLoading, mutate } = useMutation({
     mutationFn: ({ description }) => createNewPost(description),
     onSuccess: () => {
       toast.success("Post has been successfully created.");
@@ -21,5 +21,5 @@ export function useCreatePost() {
     },
   });
 
-  return { isLoading, mutate, error };
+  return { isLoading, mutate };
 }
