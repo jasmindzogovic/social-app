@@ -12,8 +12,8 @@ export function useAddRemoveFriends() {
       const { operation } = variables;
       toast.success(
         `User has been ${
-          operation === "add" ? "added" : "removed"
-        } from friends list.`
+          operation === "add" ? "added to" : "removed from"
+        } friends list.`
       );
       queryClient.invalidateQueries(["user"]);
     },
