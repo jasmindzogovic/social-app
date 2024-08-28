@@ -11,6 +11,7 @@ import * as yup from "yup";
 
 import { useCreatePost } from "../pages/useCreatePost";
 import UserImage from "./UserImage";
+import toast from "react-hot-toast";
 
 const postSchema = yup
   .object()
@@ -22,9 +23,13 @@ function FormPost({ image }) {
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     mutate(values, {
-      onSucess: () => resetForm(),
+      onSucess: () => {
+        resetForm();
+        toast.success("Post was created successfully.");
+      },
       onError: (error) => {
         console.error("Posting failed", error.message);
+        toast.error(`Posting failed ${error.message}`);
       },
       onSettled: () => setSubmitting(false),
     });
@@ -32,13 +37,16 @@ function FormPost({ image }) {
 
   return (
     <Box
-      display="flex"
-      flexDirection="column"
-      gap="10px"
-      height="auto"
-      bgcolor={palette.background.alt}
-      padding="1rem 2rem"
-      borderRadius="5px"
+      sx={{
+        boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        height: "auto",
+        bgcolor: palette.background.alt,
+        padding: "1rem 2rem",
+        borderRadius: "5px",
+      }}
     >
       <UserImage image={image} />
       <Divider />
@@ -80,11 +88,6 @@ function FormPost({ image }) {
             >
               {isLoading ? "Posting" : "Post"}
             </Button>
-            {error && (
-              <Typography style={{ color: "red" }}>
-                Posting failed: {error.message}
-              </Typography>
-            )}
           </Form>
         )}
       </Formik>

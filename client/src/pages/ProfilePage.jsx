@@ -11,32 +11,17 @@ import NavBar from "../components/NavBar";
 import UserWidget from "../components/UserWidget";
 import SociopediaHeader from "../components/SociopediaHeader";
 import PostWidget from "../components/PostWidget";
+import Users from "../components/Users";
 
 import { getUser } from "../services/users";
-import { useAddRemoveFriends } from "./useAddRemoveFriends";
-import { getAllPosts } from "../services/posts";
 
 function ProfilePage() {
   const { userId } = useParams();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-  const {
-    isLoading: friendListLoading,
-    mutate,
-    error: friendListError,
-  } = useAddRemoveFriends();
 
   const { data, isLoading, error } = useQuery({
     queryFn: () => getUser(userId),
     queryKey: ["user", userId],
-  });
-
-  const {
-    data: postData,
-    isLoading: postLoadingStatus,
-    error: postError,
-  } = useQuery({
-    queryFn: () => getAllPosts(),
-    queryKey: ["post"],
   });
 
   if (isLoading)
@@ -51,12 +36,6 @@ function ProfilePage() {
 
   const { firstName, lastName, image, location, occupation, friends } =
     data.data.user;
-
-  function handleAddRemoveFriend(operation, friendID) {
-    if (!operation || !friendID || !userId) return;
-
-    mutate({ operation, friendID, userId });
-  }
 
   return (
     <>
@@ -90,9 +69,13 @@ function ProfilePage() {
             mt: `${isNonMobileScreens ? undefined : "2rem"}`,
           }}
         >
-          <PostWidget image={image} />
+          <PostWidget image={image}/>
         </Box>
-        {isNonMobileScreens && <Box sx={{ flexBasis: "26%" }}></Box>}
+        {isNonMobileScreens && (
+          <Box sx={{ flexBasis: "26%" }}>
+            <Users userId={userId} />
+          </Box>
+        )}
       </Box>
     </>
   );

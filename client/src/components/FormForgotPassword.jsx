@@ -3,6 +3,7 @@ import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 
 import { useForgotPassword } from "../pages/useForgotPassword";
+import toast from "react-hot-toast";
 
 const forgotPasswordSchema = yup.object().shape({
   email: yup.string().email("invalid email").required("required"),
@@ -13,10 +14,19 @@ function FormForgotPassword() {
 
   function handleSubmit(values, { setSubmitting, resetForm }) {
     mutate(values, {
-      onSuccess: () => resetForm(),
+      onSuccess: () => {
+        resetForm();
+        toast.success(
+          "An email with password reset instructions has been sent to your email."
+        );
+      },
       onError: (error) => {
         console.error(
           "There was an error while submitting the forgot password form.",
+          error.message
+        );
+        toast.error(
+          "There was an error while submitting the form.",
           error.message
         );
       },
@@ -60,12 +70,6 @@ function FormForgotPassword() {
             >
               {isLoading ? "Sending..." : "Forgot Password"}
             </Button>
-            {isSuccess && <Typography>Please check your email</Typography>}
-            {error && (
-              <Typography sx={{ color: "red" }}>
-                Error: {error.message}
-              </Typography>
-            )}
           </Box>
         </Form>
       )}

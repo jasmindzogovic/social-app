@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 export function useSignUp() {
   const navigate = useNavigate();
 
-  const { isLoading, mutate, isSuccess, error } = useMutation({
+  const { isLoading, mutate } = useMutation({
     mutationFn: ({
       firstName,
       lastName,
@@ -27,14 +27,18 @@ export function useSignUp() {
         location,
         occupation
       ),
-    onSuccess: () => toast.success("Sign up was succesful."),
+    onSuccess: () =>
+      toast.success(
+        "Sign up was succesful. Please check your email to activate your account."
+      ),
     onError: (error) => {
       console.error(
         "Error occurred during sign up:",
         error.response ? error.response.data : error.message
       );
+      toast.error(`Error occurred during sign up. ${error.message}`);
     },
   });
 
-  return { isLoading, mutate, isSuccess, error };
+  return { isLoading, mutate };
 }

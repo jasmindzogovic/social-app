@@ -3,6 +3,7 @@ import { Formik, Field, Form } from "formik";
 import * as yup from "yup";
 
 import { useResetPassword } from "../pages/useResetPassword";
+import toast from "react-hot-toast";
 
 const resetPasswordSchema = yup.object().shape({
   password: yup.string().required("required"),
@@ -17,11 +18,17 @@ function FormResetPassword({ token }) {
 
   function handleSubmit(values, { setSubmitting, resetForm }) {
     mutate(values, {
-      onSuccess: () => resetForm(),
+      onSuccess: () => {
+        resetForm();
+        toast.success("Password has been reset successfully.");
+      },
       onError: (error) => {
         console.error(
           "There was an error while submitting the reset password form.",
           error.message
+        );
+        toast.error(
+          `There was an error while submitting the reset password form. ${error.message}`
         );
       },
       onSettled: () => setSubmitting(false),
@@ -78,16 +85,6 @@ function FormResetPassword({ token }) {
                 <Typography>Reset password</Typography>
               )}
             </Button>
-            {isSuccess && (
-              <Typography variant="h3">
-                Password has been successfully reset.
-              </Typography>
-            )}
-            {error && (
-              <Typography variant="h3" sx={{ color: "red" }}>
-                The password could not be reset. {error.message}
-              </Typography>
-            )}
           </Box>
         </Form>
       )}

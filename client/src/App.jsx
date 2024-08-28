@@ -25,7 +25,7 @@ function App() {
       <Toaster
         position="top-center"
         reverseOrder={false}
-        toastOptions={{ style: { height: "5rem" } }}
+        toastOptions={{ style: { height: "8rem" } }}
       />
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>

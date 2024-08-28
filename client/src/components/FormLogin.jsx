@@ -10,6 +10,7 @@ import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 
 import { useLogin } from "../pages/useLogin";
+import toast from "react-hot-toast";
 
 const loginSchema = yup.object().shape({
   email: yup.string().email("invalid email").required("required"),
@@ -24,9 +25,13 @@ function FormLogin() {
 
   function handleSubmit(values, { setSubmitting, resetForm }) {
     mutate(values, {
-      onSuccess: () => resetForm(),
+      onSuccess: () => {
+        resetForm();
+        toast.success("Login was successful.");
+      },
       onError: (error) => {
         console.error("Login failed", error.message);
+        toast.error(`Login failed: ${error.message}`);
       },
       onSettled: () => setSubmitting(false),
     });
@@ -40,7 +45,7 @@ function FormLogin() {
     >
       {({ errors, touched }) => (
         <Form>
-          <Box display="flex" flexDirection="column" gap="30px">
+          <Box sx={{ display: "flex", flexDirection: "column", gap: "30px" }}>
             <Field
               name="email"
               id="email"
@@ -73,11 +78,6 @@ function FormLogin() {
           >
             {isLoading ? "Logging In" : "Log In"}
           </Button>
-          {error && (
-            <Typography style={{ color: "red" }}>
-              Login failed: {error.message}
-            </Typography>
-          )}
         </Form>
       )}
     </Formik>

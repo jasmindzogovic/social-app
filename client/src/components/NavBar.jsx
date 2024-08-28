@@ -58,7 +58,7 @@ function NavBar({ data }) {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        backgroundColor: `${alt}`,
+        backgroundColor: alt,
       }}
     >
       <Box sx={{ gap: "1.75rem", display: "flex", alignItems: "center" }}>
@@ -76,7 +76,7 @@ function NavBar({ data }) {
             sx={{
               display: "flex",
               alignItems: "center",
-              backgroundColor: { neutralLight },
+              backgroundColor: neutralLight ,
               borderRadius: "9px",
               gap: "3rem",
               padding: "0.1rem 1.5rem",
@@ -129,7 +129,7 @@ function NavBar({ data }) {
             zIndex: "10",
             maxWidth: "500px",
             minWidth: "300px",
-            backgroundColor: { background },
+            backgroundColor: background ,
           }}
         >
           <Box sx={{ display: "flex", justifyContent: "flex-end", p: "1rem" }}>

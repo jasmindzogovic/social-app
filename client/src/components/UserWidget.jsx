@@ -1,6 +1,5 @@
 import {
   ManageAccountsOutlined,
-  EditOutlined,
   LocationOnOutlined,
   WorkOutlineRounded,
 } from "@mui/icons-material";
@@ -31,6 +30,7 @@ function UserWidget({
         display: "flex",
         p: "1.5rem 1.5rem 0.75rem 1.5rem",
         width: "20rem",
+        boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
       }}
     >
       <Box
@@ -47,7 +47,6 @@ function UserWidget({
             <Typography
               variant="h4"
               sx={{
-                "&:hover": { color: palette.primary.light, cursor: "pointer" },
                 fontWeight: "500",
                 color: `${dark}`,
               }}

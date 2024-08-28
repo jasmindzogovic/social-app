@@ -33,7 +33,7 @@ function FormSignup() {
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width: 600px)");
 
-  const { mutate, isLoading, isSuccess, error } = useSignUp();
+  const { mutate, isLoading } = useSignUp();
 
   const handleSubmit = (values) => {
     mutate(values);
@@ -260,17 +260,6 @@ function FormSignup() {
                 Already a member? Log in here.
               </Button>
             </Box>
-            {isSuccess && (
-              <Typography textAlign="center">
-                Sign up was successful. Please check your email to activate your
-                account.
-              </Typography>
-            )}
-            {error && (
-              <Typography color="error" textAlign="center">
-                Sign up failed: {error.message}
-              </Typography>
-            )}
           </form>
         )}
       </Formik>

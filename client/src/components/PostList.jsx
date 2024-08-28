@@ -32,6 +32,7 @@ function PostList() {
               p: "1rem",
               borderRadius: "5px",
               backgroundColor: palette.background.alt,
+              boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
             }}
             key={_id}
           >

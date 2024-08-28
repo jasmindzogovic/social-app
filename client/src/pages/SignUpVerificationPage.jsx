@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
+import { Button, CircularProgress, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -19,11 +19,7 @@ function SignUpVerificationPage() {
   return (
     <>
       <SociopediaHeader />
-      {isLoading && (
-        <Typography variant="h3" sx={{ textAlign: "center" }}>
-          Verifying your email...
-        </Typography>
-      )}
+      {isLoading && <CircularProgress />}
       {error && (
         <Typography sx={{ color: "red", textAlign: "center" }} variant="h3">
           Error occurred: {error.message}
