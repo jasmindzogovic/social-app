@@ -25,7 +25,7 @@ function UserWidget({
     <Box
       sx={{
         backgroundColor: palette.background.alt,
-        borderRadius: "0.75rem",
+        borderRadius: "5px",
         height: "auto",
         display: "flex",
         p: "1.5rem 1.5rem 0.75rem 1.5rem",

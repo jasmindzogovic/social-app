@@ -36,14 +36,12 @@ export async function getUser(userId) {
 
 export async function addOrRemoveFriends(operation, friendID, userId) {
   try {
-    const data = { operation, friendID };
-
     const res = await axios.patch(
       `http://127.0.0.1:8000/api/v1/users/${userId}`,
-      data,
+      { operation, friendID },
       { withCredentials: true }
     );
-    
+
     return res.data;
   } catch (error) {
     console.error(

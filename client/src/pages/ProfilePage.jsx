@@ -73,7 +73,7 @@ function ProfilePage() {
         </Box>
         {isNonMobileScreens && (
           <Box sx={{ flexBasis: "26%" }}>
-            <Users userId={userId} />
+            <Users userId={userId} friends={friends}/>
           </Box>
         )}
       </Box>
