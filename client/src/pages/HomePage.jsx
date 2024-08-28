@@ -14,8 +14,9 @@ import PostWidget from "../components/PostWidget";
 import Users from "../components/Users";
 
 import { getUser } from "../services/users";
+import AdvertWidget from "../components/AdvertWidget";
 
-function ProfilePage() {
+function HomePage() {
   const { userId } = useParams();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
@@ -69,11 +70,12 @@ function ProfilePage() {
             mt: `${isNonMobileScreens ? undefined : "2rem"}`,
           }}
         >
-          <PostWidget image={image}/>
+          <PostWidget image={image} />
         </Box>
         {isNonMobileScreens && (
           <Box sx={{ flexBasis: "26%" }}>
-            <Users userId={userId} friends={friends}/>
+            <AdvertWidget/>
+            <Users userId={userId} friends={friends} />
           </Box>
         )}
       </Box>
@@ -81,4 +83,4 @@ function ProfilePage() {
   );
 }
 
-export default ProfilePage;
+export default HomePage;

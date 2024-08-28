@@ -60,7 +60,6 @@ function UserWidget({
           <ManageAccountsOutlined />
         </Box>
         <Divider />
-
         <Box
           sx={{
             display: "flex",

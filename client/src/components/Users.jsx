@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Box, Divider, Button, useTheme } from "@mui/material";
+import { Box, Divider, Button, useTheme, Typography } from "@mui/material";
 import { PersonAdd, PersonRemove } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 

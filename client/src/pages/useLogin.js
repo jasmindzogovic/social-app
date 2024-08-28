@@ -9,7 +9,7 @@ export function useLogin() {
   const { isLoading, mutate, error } = useMutation({
     mutationFn: ({ email, password }) => logIn(email, password),
     onSuccess: (data) =>
-      navigate(`/profile/${data.user._id}`, { replace: true }),
+      navigate(`/home/${data.user._id}`, { replace: true }),
     onError: (error) => {
       console.error(
         "Error occurred during log in:",
