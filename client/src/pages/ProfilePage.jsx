@@ -27,7 +27,7 @@ function ProfilePage() {
       </>
     );
 
-  if (error) return <div>There was an error fetching the user.</div>;
+  if (error) return <Box>There was an error fetching the user.</Box>;
 
   const { firstName, lastName, image, location, occupation, friends } =
     data.data.user;

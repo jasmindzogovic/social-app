@@ -10,7 +10,7 @@ const forgotPasswordSchema = yup.object().shape({
 });
 
 function FormForgotPassword() {
-  const { mutate, isLoading, isSuccess, error } = useForgotPassword();
+  const { mutate, isLoading} = useForgotPassword();
 
   function handleSubmit(values, { setSubmitting, resetForm }) {
     mutate(values, {

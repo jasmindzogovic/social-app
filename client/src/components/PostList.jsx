@@ -91,7 +91,7 @@ function PostList({ userId }) {
           }
         )
       ) : (
-        <div>No Posts available</div>
+        <Box>No Posts available</Box>
       )}
     </Box>
   );

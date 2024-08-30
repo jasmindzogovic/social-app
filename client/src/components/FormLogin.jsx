@@ -18,10 +18,7 @@ const loginSchema = yup.object().shape({
 });
 
 function FormLogin() {
-  const { mutate, isLoading, error } = useLogin();
-
-  const palette = useTheme();
-  const isNonMobile = useMediaQuery("(min-width: 600px)");
+  const { mutate, isLoading } = useLogin();
 
   function handleSubmit(values, { setSubmitting, resetForm }) {
     mutate(values, {

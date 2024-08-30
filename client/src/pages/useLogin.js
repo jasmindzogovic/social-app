@@ -6,10 +6,9 @@ import { logIn } from "../services/auth";
 export function useLogin() {
   const navigate = useNavigate();
 
-  const { isLoading, mutate, error } = useMutation({
+  const { isLoading, mutate } = useMutation({
     mutationFn: ({ email, password }) => logIn(email, password),
-    onSuccess: (data) =>
-      navigate(`/home/${data.user._id}`, { replace: true }),
+    onSuccess: (data) => navigate(`/home/${data.user._id}`, { replace: true }),
     onError: (error) => {
       console.error(
         "Error occurred during log in:",
@@ -18,5 +17,5 @@ export function useLogin() {
     },
   });
 
-  return { isLoading, mutate, error };
+  return { isLoading, mutate };
 }

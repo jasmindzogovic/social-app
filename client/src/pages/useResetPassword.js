@@ -7,14 +7,11 @@ export function useResetPassword() {
   const { isLoading, mutate } = useMutation({
     mutationFn: ({ password, passwordConfirm, token }) =>
       resetPassword(password, passwordConfirm, token),
-    onSuccess: () => toast.success("Password was reset successfully."),
-    onError: (error) => {
+    onError: (error) =>
       console.error(
         "Error occurred during password reset:",
         error.response ? error.response.data : error.message
-      );
-      toast.error(`Error occurred during password reset: ${error.message}`);
-    },
+      ),
   });
 
   return { isLoading, mutate };

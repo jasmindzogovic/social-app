@@ -2,6 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 
 function AdvertWidget() {
   const { palette } = useTheme();
+  
   return (
     <Box
       sx={{

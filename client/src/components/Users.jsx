@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Box, Divider, Button, useTheme, Typography } from "@mui/material";
+import { Box, Divider, Button, useTheme } from "@mui/material";
 import { PersonAdd, PersonRemove } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
@@ -7,12 +7,11 @@ import { useAddRemoveFriends } from "../pages/useAddRemoveFriends";
 import { getAllUsers } from "../services/users";
 import { CircularProgress } from "@mui/material";
 import UserImage from "./UserImage";
-import { useState } from "react";
 
 function Users({ userId, friends }) {
   const navigate = useNavigate();
   const theme = useTheme();
-  const {  mutate } = useAddRemoveFriends();
+  const { mutate } = useAddRemoveFriends();
 
   const {
     data,
