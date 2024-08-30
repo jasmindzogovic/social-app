@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 import {
   Box,
@@ -11,6 +13,10 @@ import {
   FormControl,
   useTheme,
   useMediaQuery,
+  ListItemButton,
+  ListItemText,
+  ListItem,
+  List,
 } from "@mui/material";
 
 import {
@@ -24,11 +30,26 @@ import {
 } from "@mui/icons-material";
 
 import { useLogOut } from "../pages/useLogOut";
+import { getAllUsers } from "../services/users";
 
 function NavBar({ data }) {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [usersList, setUsersList] = useState([]);
+  const navigate = useNavigate();
+
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+
   const { mutate, isLoading, error } = useLogOut();
+
+  const {
+    data: usersData,
+    isLoading: usersIsLoading,
+    error: usersError,
+  } = useQuery({
+    queryFn: getAllUsers,
+    queryKey: ["user"],
+  });
 
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
@@ -37,6 +58,7 @@ function NavBar({ data }) {
   const alt = theme.palette.background.alt;
 
   const fullName = `${data.data.user.firstName} ${data.data.user.lastName}`;
+  const { users } = usersData ? usersData.data : [];
 
   function handleLogOut() {
     mutate();
@@ -50,6 +72,26 @@ function NavBar({ data }) {
     e.target.placeholder = "Search...";
   }
 
+  function handleKeyUp(e) {
+    if (e.key === "Backspace") {
+      setSearchTerm("");
+      setUsersList([]);
+    }
+
+    setSearchTerm(e.target.value.toLowerCase());
+
+    if (searchTerm.length < 2) return;
+
+    const filter = users.filter((user) =>
+      user.firstName.toLowerCase().includes(searchTerm)
+    );
+    setUsersList(filter);
+  }
+
+  function handleClick(userId) {
+    navigate(`/profile/${userId}`);
+  }
+
   return (
     <Box
       sx={{
@@ -61,13 +103,22 @@ function NavBar({ data }) {
         backgroundColor: alt,
       }}
     >
-      <Box sx={{ gap: "1.75rem", display: "flex", alignItems: "center" }}>
+      <Box
+        sx={{
+          gap: "1.75rem",
+          display: "flex",
+          alignItems: "center",
+          position: "relative",
+        }}
+      >
         <Typography
           sx={{
             fontWeight: "bold",
             fontSize: "clamp(1rem, 2rem, 2.25rem)",
-            color: "primary",
+            color: theme.palette.primary.main,
+            cursor: "pointer",
           }}
+          onClick={() => navigate(`/home/${data.data.user._id}`)}
         >
           Sociopedia
         </Typography>
@@ -76,17 +127,49 @@ function NavBar({ data }) {
             sx={{
               display: "flex",
               alignItems: "center",
-              backgroundColor: neutralLight ,
+              backgroundColor: neutralLight,
               borderRadius: "9px",
-              gap: "3rem",
               padding: "0.1rem 1.5rem",
+              position: "relative",
+              width: "100%",
+              maxWidth: "22.5rem",
             }}
           >
             <InputBase
               placeholder="Search..."
               onFocus={handleFocus}
               onBlur={handleBlur}
+              onKeyUp={handleKeyUp}
+              sx={{ width: "100%" }}
             />
+            {usersList.length > 0 && (
+              <List
+                sx={{
+                  position: "absolute",
+                  top: "100%",
+                  left: "0",
+                  width: "100%",
+                  backgroundColor: theme.palette.background.alt,
+                  borderRadius: "9px",
+                  boxShadow: "0px 4px 12px rgba(0,0,0,0.1)",
+                  zIndex: 10,
+                }}
+              >
+                {usersList.map((user) => (
+                  <ListItem key={user._id}>
+                    <ListItemButton
+                      onClick={() => handleClick(user._id)}
+                      sx={{ "&:hover": { backgroundColor: "transparent" } }}
+                    >
+                      <ListItemText
+                        primary={user.firstName}
+                        sx={{ textAlign: "center", pb: "1rem" }}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
+            )}
           </Box>
         )}
       </Box>
@@ -118,7 +201,6 @@ function NavBar({ data }) {
           <Menu />
         </IconButton>
       )}
-
       {!isNonMobileScreens && isMobileMenuToggled && (
         <Box
           sx={{
@@ -129,7 +211,7 @@ function NavBar({ data }) {
             zIndex: "10",
             maxWidth: "500px",
             minWidth: "300px",
-            backgroundColor: background ,
+            backgroundColor: background,
           }}
         >
           <Box sx={{ display: "flex", justifyContent: "flex-end", p: "1rem" }}>
@@ -140,12 +222,13 @@ function NavBar({ data }) {
             </IconButton>
           </Box>
           <Box
-          sx={{display:"flex",
-            flexDirection:"column",
-            justifyContent:"center",
-            alignItems:"center",
-            gap:"1rem"}}
-            
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "1rem",
+            }}
           >
             <IconButton sx={{ fontSize: "25px" }}>
               {theme.palette.mode === "dark" ? (

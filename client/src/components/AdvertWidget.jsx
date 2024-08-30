@@ -23,10 +23,10 @@ function AdvertWidget() {
         width="100%"
         height="auto"
         alt="advert"
-        src="http://localhist:8000/assets/info4.jpeg"
+        src="http://localhost:8000/assets/info4.jpeg"
         style={{ borderRadius: "0.75rem", margin: "0.75rem 0" }}
       />
-      <Box>
+      <Box sx={{display: 'flex', m: '1rem 0'}}>
         <Typography color={palette.neutral.main}>MikaCosmetics</Typography>
         <Typography color={palette.neutral.medium}>
           mikacosmetics.com

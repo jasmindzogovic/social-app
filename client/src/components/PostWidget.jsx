@@ -25,7 +25,6 @@ import PostList from "./PostList";
 
 function PostWidget({ image }) {
   const { userId } = useParams();
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
   return (
     <>

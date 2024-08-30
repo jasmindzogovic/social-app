@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 export function useAddRemoveFriends() {
   const queryClient = useQueryClient();
-  const { isLoading, mutate, error } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: ({ operation, friendID, userId }) =>
       addOrRemoveFriends(operation, friendID, userId),
     onSuccess: (_, variables) => {
@@ -22,8 +22,9 @@ export function useAddRemoveFriends() {
         "Error occurred while adding or removing from friends list:",
         error.response ? error.response.data : error.message
       );
+      toast.error("Error occurred while adding or removing from friends list.");
     },
   });
 
-  return { isLoading, mutate, error };
+  return { mutate };
 }

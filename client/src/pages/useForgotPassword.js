@@ -10,6 +10,7 @@ export function useForgotPassword() {
         "Error occurred during password reset:",
         error.response ? error.response.data : error.message
       );
+      toast.error('Error occurred while sending password reset email.')
     },
   });
 

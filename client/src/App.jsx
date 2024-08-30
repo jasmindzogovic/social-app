@@ -13,6 +13,7 @@ import SignUpVerificationPage from "./pages/SignUpVerificationPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ function App() {
                 element={<ResetPasswordPage />}
               />
               <Route path="/home/:userId" element={<HomePage />} />
+              <Route path="/profile/:userId" element={<ProfilePage />} />
             </Routes>
           </ThemeProvider>
         </BrowserRouter>

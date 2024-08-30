@@ -1,19 +1,18 @@
+import { Box, useMediaQuery, CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useMediaQuery, Box, CircularProgress } from "@mui/material";
 
 import NavBar from "../components/NavBar";
+import Users from "../components/Users";
+import PostWidget from "../components/PostWidget";
 import UserWidget from "../components/UserWidget";
 import SociopediaHeader from "../components/SociopediaHeader";
-import PostWidget from "../components/PostWidget";
-import Users from "../components/Users";
-import AdvertWidget from "../components/AdvertWidget";
 
 import { getUser } from "../services/users";
 
-function HomePage() {
+function ProfilePage() {
   const { userId } = useParams();
-  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const isNonMobileScreens = useMediaQuery("(min-wdith:1000px)");
 
   const { data, isLoading, error } = useQuery({
     queryFn: () => getUser(userId),
@@ -34,15 +33,15 @@ function HomePage() {
     data.data.user;
 
   return (
-    <>
+    <Box>
       <NavBar data={data} />
       <Box
         sx={{
           width: "100%",
           p: "2rem 6%",
           display: `${isNonMobileScreens ? "flex" : "block"}`,
-          gap: ".5rem",
-          justifyContent: "space-between",
+          gap: "2rem",
+          justifyContent: "center",
         }}
       >
         <Box sx={{ flexBasis: `${isNonMobileScreens ? "26%" : undefined}` }}>
@@ -63,15 +62,9 @@ function HomePage() {
         >
           <PostWidget image={image} />
         </Box>
-        {isNonMobileScreens && (
-          <Box sx={{ flexBasis: "26%" }}>
-            <AdvertWidget />
-            <Users userId={userId} friends={friends} />
-          </Box>
-        )}
       </Box>
-    </>
+    </Box>
   );
 }
 
-export default HomePage;
+export default ProfilePage;

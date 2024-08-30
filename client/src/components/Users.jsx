@@ -12,12 +12,12 @@ import { useState } from "react";
 function Users({ userId, friends }) {
   const navigate = useNavigate();
   const theme = useTheme();
-  const { isLoading, mutate, error } = useAddRemoveFriends();
+  const {  mutate } = useAddRemoveFriends();
 
   const {
     data,
-    isLoading: userIsLoading,
-    error: userError,
+    isLoading: usersIsLoading,
+    error: usersError,
   } = useQuery({
     queryFn: getAllUsers,
     queryKey: ["user"],
@@ -29,7 +29,7 @@ function Users({ userId, friends }) {
     mutate({ operation, friendID, userId });
   }
 
-  if (userIsLoading) return <CircularProgress />;
+  if (usersIsLoading) return <CircularProgress />;
 
   const { users } = data ? data.data : [];
   const filteredUsers = users.filter((user) => user._id !== userId);
