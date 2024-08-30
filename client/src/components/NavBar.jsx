@@ -36,6 +36,7 @@ function NavBar({ data }) {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [usersList, setUsersList] = useState([]);
+  const [userClicked, setUserClicked] = useState(false);
   const navigate = useNavigate();
 
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
@@ -64,12 +65,23 @@ function NavBar({ data }) {
     mutate();
   }
 
+  function handleClick(userId) {
+    setUserClicked(true);
+    navigate(`/profile/${userId}`);
+  }
+
   function handleFocus(e) {
     e.target.placeholder = "";
   }
 
   function handleBlur(e) {
     e.target.placeholder = "Search...";
+    setTimeout(() => {
+      if (userClicked) {
+        setSearchTerm("");
+        setUsersList([]);
+      }
+    }, 200);
   }
 
   function handleKeyUp(e) {
@@ -86,10 +98,6 @@ function NavBar({ data }) {
       user.firstName.toLowerCase().includes(searchTerm)
     );
     setUsersList(filter);
-  }
-
-  function handleClick(userId) {
-    navigate(`/profile/${userId}`);
   }
 
   return (
