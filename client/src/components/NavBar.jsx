@@ -85,7 +85,7 @@ function NavBar({ data }) {
   }
 
   function handleKeyUp(e) {
-    if (e.key === "Backspace") {
+    if (e.key === "Backspace" && searchTerm.length < 2) {
       setSearchTerm("");
       setUsersList([]);
     }
