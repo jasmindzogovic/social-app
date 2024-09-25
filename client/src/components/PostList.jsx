@@ -20,15 +20,25 @@ function PostList({ userId }) {
     mutate({ postId });
   }
 
+  console.log(error);
+
   if (isLoading)
-    return <CircularProgress style={{ display: "block", margin: "auto" }} />;
-  if (error) return <div>Error loading posts: {error.message}</div>;
+    return (
+      <CircularProgress sx={{ display: "block", m: "auto", mt: "1rem" }} />
+    );
+
+  if (error && error !== null)
+    return (
+      <Box sx={{ mt: "1rem", textAlign: "center" }}>
+        Error loading posts: {error.message}
+      </Box>
+    );
 
   const { posts } = data ? data.data : [];
 
   return (
     <Box>
-      {posts.length > 0 ? (
+      {posts && posts.length > 0 ? (
         posts.map(
           ({ _id, description, likes, comments, createdAt, user, likedBy }) => {
             const hasLiked = likedBy.includes(userId);
