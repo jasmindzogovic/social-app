@@ -30,7 +30,7 @@ function UserWidget({
         display: "flex",
         p: "1.5rem 1.5rem 0.75rem 1.5rem",
         width: "20rem",
-        boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;'
+        boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
       }}
     >
       <Box

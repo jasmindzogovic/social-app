@@ -85,7 +85,9 @@ function Users({ userId, friends }) {
                   )}
                 </Box>
               </Box>
-              <Divider sx={{ mb: "1rem", p: "1rem" }} />
+              {filteredUsers.length > 1 && (
+                <Divider sx={{ mb: "1rem", p: "1rem" }} />
+              )}
             </Box>
           );
         })}

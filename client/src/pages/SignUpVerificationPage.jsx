@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Button, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
@@ -19,19 +19,28 @@ function SignUpVerificationPage() {
   return (
     <>
       <SociopediaHeader />
-      {isLoading && <CircularProgress />}
+      {isLoading && <CircularProgress sx={{ mt: "1rem" }} />}
       {error && (
-        <Typography sx={{ color: "red", textAlign: "center" }} variant="h3">
+        <Typography
+          sx={{ color: "red", textAlign: "center", mt: "1rem" }}
+          variant="h4"
+        >
           Error occurred: {error.message}
         </Typography>
       )}
       {isSuccess && (
-        <Typography variant="h3" sx={{ textAlign: "center" }}>
-          Account has been verified. You may log in to your account now.
-          <Button type="submit" onClick={() => navigate("/")}>
-            Take me to login page. &rarr;
-          </Button>
-        </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <Typography variant="h4" sx={{ textAlign: "center", mt: "1rem" }}>
+            Account has been verified. You may log in to your account now.
+            <Button
+              type="submit"
+              onClick={() => navigate("/")}
+              sx={{ width: "100%", height: "auto" }}
+            >
+              Take me to login page. &rarr;
+            </Button>
+          </Typography>
+        </Box>
       )}
     </>
   );
