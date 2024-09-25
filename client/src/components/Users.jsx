@@ -33,63 +33,64 @@ function Users({ userId, friends }) {
   const { users } = data ? data.data : [];
   const filteredUsers = users.filter((user) => user._id !== userId);
 
-  return (
-    <Box
-      sx={{
-        backgroundColor: theme.palette.background.alt,
-        p: "1rem",
-        height: "auto",
-        boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
-        borderRadius: "5px",
-      }}
-    >
-      {filteredUsers.map((user) => {
-        const isFriend =
-          friends && friends.find((friend) => friend._id === user._id);
+  if (filteredUsers.length > 0)
+    return (
+      <Box
+        sx={{
+          backgroundColor: theme.palette.background.alt,
+          p: "1rem",
+          height: "auto",
+          boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;",
+          borderRadius: "5px",
+        }}
+      >
+        {filteredUsers.map((user) => {
+          const isFriend =
+            friends && friends.find((friend) => friend._id === user._id);
 
-        return (
-          <Box key={user._id} sx={{ height: "auto" }}>
-            <Box sx={{ display: "flex" }}>
-              <UserImage image={user.image} />
-              <Box sx={{ ml: "1rem" }}>
-                <Box
-                  sx={{ fontSize: "1rem", cursor: "pointer" }}
-                  onClick={() => navigate(`/profile/${user._id}`)}
-                >
-                  {user.firstName} {user.lastName}
+          return (
+            <Box key={user._id} sx={{ height: "auto" }}>
+              <Box sx={{ display: "flex" }}>
+                <UserImage image={user.image} />
+                <Box sx={{ ml: "1rem" }}>
+                  <Box
+                    sx={{ fontSize: "1rem", cursor: "pointer" }}
+                    onClick={() => navigate(`/profile/${user._id}`)}
+                  >
+                    {user.firstName} {user.lastName}
+                  </Box>
+                  <Box>{user.location}</Box>
                 </Box>
-                <Box>{user.location}</Box>
+                <Box>
+                  {isFriend ? (
+                    <Button
+                      sx={{
+                        cursor: "pointer",
+                        "&:hover": { color: theme.palette.primary.main },
+                      }}
+                      onClick={() => handleAddRemoveFriend("remove", user._id)}
+                    >
+                      <PersonRemove />
+                    </Button>
+                  ) : (
+                    <Button
+                      sx={{
+                        cursor: "pointer",
+                        "&:hover": { color: theme.palette.primary.main },
+                      }}
+                      onClick={() => handleAddRemoveFriend("add", user._id)}
+                    >
+                      <PersonAdd />
+                    </Button>
+                  )}
+                </Box>
               </Box>
-              <Box>
-                {isFriend ? (
-                  <Button
-                    sx={{
-                      cursor: "pointer",
-                      "&:hover": { color: theme.palette.primary.main },
-                    }}
-                    onClick={() => handleAddRemoveFriend("remove", user._id)}
-                  >
-                    <PersonRemove />
-                  </Button>
-                ) : (
-                  <Button
-                    sx={{
-                      cursor: "pointer",
-                      "&:hover": { color: theme.palette.primary.main },
-                    }}
-                    onClick={() => handleAddRemoveFriend("add", user._id)}
-                  >
-                    <PersonAdd />
-                  </Button>
-                )}
-              </Box>
+              <Divider sx={{ mb: "1rem", p: "1rem" }} />
             </Box>
-            <Divider sx={{ mb: "1rem", p: "1rem" }} />
-          </Box>
-        );
-      })}
-    </Box>
-  );
+          );
+        })}
+      </Box>
+    );
 }
 
 export default Users;

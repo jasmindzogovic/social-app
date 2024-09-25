@@ -20,8 +20,6 @@ function PostList({ userId }) {
     mutate({ postId });
   }
 
-  console.log(error);
-
   if (isLoading)
     return (
       <CircularProgress sx={{ display: "block", m: "auto", mt: "1rem" }} />
