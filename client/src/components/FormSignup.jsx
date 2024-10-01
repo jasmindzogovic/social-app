@@ -210,7 +210,7 @@ function FormSignup() {
                         ) : (
                           <img
                             src={values.image}
-                            alt="Uploaded Preview"
+                            alt="Upload image"
                             sx={{ width: "100px", height: "100px" }}
                           />
                         )}

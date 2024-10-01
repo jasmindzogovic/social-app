@@ -34,11 +34,11 @@ exports.getUserPosts = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   try {
-    const { description } = req.body;
+    const { description, image } = req.body;
 
     const userID = req.user._id;
 
-    const post = await Post.create({ description, user: userID });
+    const post = await Post.create({ description, user: userID, image });
 
     res.status(201).json({ status: "success", data: { post } });
   } catch (error) {

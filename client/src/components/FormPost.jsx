@@ -8,14 +8,16 @@ import {
 } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
+import Dropzone from "react-dropzone";
 
 import { useCreatePost } from "../pages/useCreatePost";
 import UserImage from "./UserImage";
 import toast from "react-hot-toast";
 
-const postSchema = yup
-  .object()
-  .shape({ description: yup.string().required("required") });
+const postSchema = yup.object().shape({
+  description: yup.string().required("required"),
+  image: yup.mixed().required("required"),
+});
 
 function FormPost({ image }) {
   const { mutate, isLoading } = useCreatePost();
@@ -31,7 +33,9 @@ function FormPost({ image }) {
         console.error("Posting failed", error.message);
         toast.error(`Posting failed ${error.message}`);
       },
-      onSettled: () => setSubmitting(false),
+      onSettled: () => {
+        setSubmitting(false);
+      },
     });
   };
 
@@ -51,11 +55,25 @@ function FormPost({ image }) {
       <UserImage image={image} />
       <Divider />
       <Formik
-        initialValues={{ description: "" }}
+        initialValues={{ description: "", image: "" }}
         validationSchema={postSchema}
-        onSubmit={handleSubmit}
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          if (values.image) {
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+              values.image = reader.result;
+              handleSubmit(values, {setSubmitting, resetForm});
+              setSubmitting(false);
+            };
+            reader.readAsDataURL(values.image);
+          } else {
+            handleSubmit(values, {setSubmitting, resetForm});
+            setSubmitting(false);
+          }
+        }}
       >
-        {({ errors, touched }) => (
+        {({ values, errors, touched, setFieldValue }) => (
           <Form>
             <Box>
               <Field
@@ -72,6 +90,51 @@ function FormPost({ image }) {
                 helperText={touched.description && errors.description}
                 sx={{ height: "auto", borderRadius: "10px", mt: "1rem" }}
               />
+            </Box>
+            <Box
+              sx={{
+                gridColumn: "span 2",
+                border: `1px solid ${palette.neutral.medium}`,
+                borderRadius: "5px",
+                p: "1rem",
+                maxWidth: "400px",
+                mx: "auto",
+              }}
+            >
+              <Dropzone
+                acceptedFiles="image/jpeg, image/png"
+                multiple={false}
+                onDrop={(acceptedFiles) =>
+                  setFieldValue("image", acceptedFiles[0])
+                }
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <Box
+                    {...getRootProps()}
+                    sx={{
+                      "&:hover": { cursor: "pointer" },
+                      border: `2px dashed ${palette.primary.main}`,
+                      p: ".5rem",
+                    }}
+                  >
+                    <input {...getInputProps()} />
+                    <Typography>
+                      {values.image && typeof values.image === "object" ? (
+                        values.image.name
+                      ) : (
+                        <img
+                          src={values.image}
+                          alt="Upload image"
+                          sx={{ width: "100px", height: "100px" }}
+                        />
+                      )}
+                    </Typography>
+                  </Box>
+                )}
+              </Dropzone>
+              {touched.image && errors.image && (
+                <Typography color="error">{errors.image}</Typography>
+              )}
             </Box>
             <Button
               type="submit"
