@@ -72,8 +72,15 @@ function PostList({ userId }) {
                   )}
                 </Box>
                 <Box>{createdAt}</Box>
-                <Box sx={{ display: "flex" }}>
-                  <UserImage image={user.image} />
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: "1rem",
+                    mt: "1rem",
+                    alignItems: "center",
+                  }}
+                >
+                  <UserImage image={user.image} size="40px" />
                   <Box sx={{ mb: "1rem" }}>
                     {user.firstName} {user.lastName}
                   </Box>

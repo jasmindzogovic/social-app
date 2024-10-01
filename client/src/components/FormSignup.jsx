@@ -8,7 +8,6 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { EditOutlined } from "@mui/icons-material";
 import * as yup from "yup";
 import { Formik } from "formik";
 
@@ -189,7 +188,7 @@ function FormSignup() {
                 }}
               >
                 <Dropzone
-                  acceptedFiles=".jpg,.jpeg,.png"
+                  acceptedFiles="image/jpeg, image/png"
                   multiple={false}
                   onDrop={(acceptedFiles) =>
                     setFieldValue("image", acceptedFiles[0])
@@ -206,13 +205,14 @@ function FormSignup() {
                     >
                       <input {...getInputProps()} />
                       <Typography>
-                        {values.image ? (
+                        {values.image && typeof values.image === "object" ? (
                           values.image.name
                         ) : (
-                          <>
-                            "Drag and drop or click to select an image"
-                            <EditOutlined />
-                          </>
+                          <img
+                            src={values.image}
+                            alt="Uploaded Preview"
+                            sx={{ width: "100px", height: "100px" }}
+                          />
                         )}
                       </Typography>
                     </Box>

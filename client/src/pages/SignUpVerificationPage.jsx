@@ -35,7 +35,7 @@ function SignUpVerificationPage() {
             <Button
               type="submit"
               onClick={() => navigate("/")}
-              sx={{ width: "100%", height: "auto" }}
+              sx={{ width: "10rem", height: "auto" }}
             >
               Take me to login page. &rarr;
             </Button>

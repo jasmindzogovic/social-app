@@ -42,8 +42,6 @@ function NavBar({ data }) {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const loggedInUser = localStorage.getItem("userId");
 
-  console.log(loggedInUser);
-
   const { mutate, isLoading, error } = useLogOut();
 
   const {

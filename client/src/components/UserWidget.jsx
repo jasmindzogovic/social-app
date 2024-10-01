@@ -1,8 +1,4 @@
-import {
-  ManageAccountsOutlined,
-  LocationOnOutlined,
-  WorkOutlineRounded,
-} from "@mui/icons-material";
+import { LocationOnOutlined, WorkOutlineRounded } from "@mui/icons-material";
 import { Box, Typography, Divider, useTheme } from "@mui/material";
 
 import UserImage from "./UserImage";
@@ -41,8 +37,10 @@ function UserWidget({
           pb: "1.1rem",
         }}
       >
-        <Box sx={{ display: "flex", gap: "1rem" }}>
-          <UserImage image={image} />
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ width: "auto", marginRight: "1rem" }}>
+            <UserImage image={image} />
+          </Box>
           <Box>
             <Typography
               variant="h4"
@@ -57,7 +55,6 @@ function UserWidget({
               Friends: {friends ? friends.length : ""}
             </Typography>
           </Box>
-          <ManageAccountsOutlined />
         </Box>
         <Divider />
         <Box

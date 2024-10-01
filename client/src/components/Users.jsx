@@ -50,8 +50,10 @@ function Users({ userId, friends }) {
 
           return (
             <Box key={user._id} sx={{ height: "auto" }}>
-              <Box sx={{ display: "flex" }}>
-                <UserImage image={user.image} />
+              <Box sx={{ display: "flex", alignItems: 'center' }}>
+                <Box>
+                  <UserImage image={user.image} />
+                </Box>
                 <Box sx={{ ml: "1rem" }}>
                   <Box
                     sx={{ fontSize: "1rem", cursor: "pointer" }}
@@ -77,6 +79,7 @@ function Users({ userId, friends }) {
                       sx={{
                         cursor: "pointer",
                         "&:hover": { color: theme.palette.primary.main },
+                        width: "2rem",
                       }}
                       onClick={() => handleAddRemoveFriend("add", user._id)}
                     >
