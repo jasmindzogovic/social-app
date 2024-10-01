@@ -11,7 +11,7 @@ import AdvertWidget from "../components/AdvertWidget";
 
 import { getUser } from "../services/users";
 
-function HomePage() {
+function HomePage({ mode, setMode }) {
   const { userId } = useParams();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const loggedInUser = localStorage.getItem("userId");
@@ -36,7 +36,7 @@ function HomePage() {
 
   return (
     <>
-      <NavBar data={data} />
+      <NavBar data={data} setMode={setMode} mode={mode} />
       <Box
         sx={{
           width: "100%",

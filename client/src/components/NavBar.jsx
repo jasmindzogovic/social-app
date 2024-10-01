@@ -32,7 +32,7 @@ import {
 import { useLogOut } from "../pages/useLogOut";
 import { getAllUsers } from "../services/users";
 
-function NavBar({ data }) {
+function NavBar({ data, setMode, mode }) {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [usersList, setUsersList] = useState([]);
@@ -190,6 +190,12 @@ function NavBar({ data }) {
             alignItems: "center",
             gap: "2rem",
             marginLeft: "10rem",
+          }}
+          onClick={() => {
+            setTimeout(() => {
+              if (mode === "light") setMode("dark");
+              else if (mode === "dark") setMode("light");
+            }, 200);
           }}
         >
           <IconButton sx={{ flexShrink: 1, width: "45px" }}>

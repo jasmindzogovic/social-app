@@ -44,7 +44,10 @@ function App() {
                 path="/reset-password/:token"
                 element={<ResetPasswordPage />}
               />
-              <Route path="/home/:userId" element={<HomePage />} />
+              <Route
+                path="/home/:userId"
+                element={<HomePage mode={mode} setMode={setMode} />}
+              />
               <Route path="/profile/:userId" element={<ProfilePage />} />
             </Routes>
           </ThemeProvider>
