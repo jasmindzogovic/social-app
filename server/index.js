@@ -22,7 +22,7 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(
   "/",
   rateLimit({
-    max: 450,
+    max: 550,
     windowMs: 60 * 60 * 1000,
     message: "Too many requests from this IP, please try again in an hour.",
   })

@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 
 function AdvertWidget() {
   const { palette } = useTheme();
-  
+
   return (
     <Box
       sx={{
@@ -24,10 +24,10 @@ function AdvertWidget() {
         width="100%"
         height="auto"
         alt="advert"
-        src="http://localhost:8000/assets/info4.jpeg"
+        src="https://cdn.britannica.com/35/222035-131-9FC95B31/makeup-cosmetics.jpg"
         style={{ borderRadius: "0.75rem", margin: "0.75rem 0" }}
       />
-      <Box sx={{display: 'flex', m: '1rem 0'}}>
+      <Box sx={{ display: "flex", m: "1rem 0" }}>
         <Typography color={palette.neutral.main}>MikaCosmetics</Typography>
         <Typography color={palette.neutral.medium}>
           mikacosmetics.com
