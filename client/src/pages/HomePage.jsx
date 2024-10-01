@@ -14,10 +14,11 @@ import { getUser } from "../services/users";
 function HomePage() {
   const { userId } = useParams();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const loggedInUser = localStorage.getItem("userId");
 
   const { data, isLoading, error } = useQuery({
-    queryFn: () => getUser(userId),
-    queryKey: ["user", userId],
+    queryFn: () => getUser(loggedInUser),
+    queryKey: ["user", loggedInUser],
   });
 
   if (isLoading)

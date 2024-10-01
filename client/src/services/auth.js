@@ -74,6 +74,10 @@ export async function logIn(email, password) {
       { withCredentials: true }
     );
 
+    const loggedInUser = res.data.user._id;
+
+    localStorage.setItem("userId", loggedInUser);
+
     return res.data;
   } catch (error) {
     console.error("Log in error:", {

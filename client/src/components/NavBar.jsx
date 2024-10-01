@@ -40,6 +40,9 @@ function NavBar({ data }) {
   const navigate = useNavigate();
 
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  const loggedInUser = localStorage.getItem("userId");
+
+  console.log(loggedInUser);
 
   const { mutate, isLoading, error } = useLogOut();
 
@@ -126,7 +129,7 @@ function NavBar({ data }) {
             color: theme.palette.primary.main,
             cursor: "pointer",
           }}
-          onClick={() => navigate(`/home/${data.data.user._id}`)}
+          onClick={() => navigate(`/home/${loggedInUser}`)}
         >
           Sociopedia
         </Typography>
