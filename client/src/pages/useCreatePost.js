@@ -6,7 +6,7 @@ import { createNewPost } from "../services/posts";
 export function useCreatePost() {
   const queryClient = useQueryClient();
   const { isLoading, mutate } = useMutation({
-    mutationFn: ({ description }) => createNewPost(description),
+    mutationFn: ({ description, image }) => createNewPost(description, image),
     onSuccess: () => queryClient.invalidateQueries(["post"]),
     onError: (error) => {
       console.error(

@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 
 const postSchema = yup.object().shape({
   description: yup.string().required("required"),
-  image: yup.mixed().required("required"),
+  image: yup.mixed(),
 });
 
 function FormPost({ image }) {
@@ -63,12 +63,12 @@ function FormPost({ image }) {
 
             reader.onloadend = () => {
               values.image = reader.result;
-              handleSubmit(values, {setSubmitting, resetForm});
+              handleSubmit(values, { setSubmitting, resetForm });
               setSubmitting(false);
             };
             reader.readAsDataURL(values.image);
           } else {
-            handleSubmit(values, {setSubmitting, resetForm});
+            handleSubmit(values, { setSubmitting, resetForm });
             setSubmitting(false);
           }
         }}

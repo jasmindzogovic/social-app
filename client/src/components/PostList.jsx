@@ -38,7 +38,16 @@ function PostList({ userId }) {
     <Box>
       {posts && posts.length > 0 ? (
         posts.map(
-          ({ _id, description, likes, comments, createdAt, user, likedBy }) => {
+          ({
+            _id,
+            description,
+            likes,
+            comments,
+            createdAt,
+            user,
+            likedBy,
+            image,
+          }) => {
             const hasLiked = likedBy.includes(userId);
 
             return (
@@ -57,6 +66,9 @@ function PostList({ userId }) {
               >
                 <Box sx={{ height: "auto", width: "auto", fontSize: "1.5rem" }}>
                   {description}
+                </Box>
+                <Box>
+                  <img src={image} />
                 </Box>
                 <Box
                   sx={{ display: "flex", alignItems: "center", mb: "1rem" }}
