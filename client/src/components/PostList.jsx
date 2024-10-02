@@ -67,8 +67,8 @@ function PostList({ userId }) {
                 <Box sx={{ height: "auto", width: "auto", fontSize: "1.5rem" }}>
                   {description}
                 </Box>
-                <Box>
-                  <img src={image} />
+                <Box sx={{m: '1rem 0'}}>
+                  <img src={image} style={{borderRadius: '5px'}}/>
                 </Box>
                 <Box
                   sx={{ display: "flex", alignItems: "center", mb: "1rem" }}
